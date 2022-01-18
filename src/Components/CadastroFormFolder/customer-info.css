@@ -11,13 +11,12 @@
 .fisica-fields {
     display: flex;
     margin: 10px;
-    gap: 40px;
+    gap: 20px;
 }
 
 .fisica-input {
     flex-grow: 1;
     min-width: 100px;
-    animation: gambiarra 500ms;
 }
 
 .nome {
@@ -44,11 +43,12 @@
 .juridica-fields {
     display: grid;
     row-gap: 30px;
+    column-gap: 10px;
     grid-template-rows: repeat(2, 1fr);
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     grid-template-areas:
-        "FANTA FANTA FANTA FANTA FANTA FANTA ..... CNPJ- CNPJ- CNPJ- CNPJ- CNPJ-"
-        "IE--- IE--- IE--- ..... RAZAO RAZAO RAZAO RAZAO ..... ABERT ABERT ABERT"
+        "FANTA FANTA FANTA FANTA FANTA FANTA CNPJ- CNPJ- CNPJ- CNPJ-"
+        "IE--- IE--- IE--- RAZAO RAZAO RAZAO RAZAO ABERT ABERT ABERT"
 }
 
 .cnpj {

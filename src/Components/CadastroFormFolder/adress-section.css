@@ -1,12 +1,13 @@
 .adress-section {
     display: grid;
     row-gap: 30px;
+    column-gap: 16px;
     place-items: stretch;
     grid-template-rows: repeat(2, 1fr);
     grid-template-columns: repeat(11, 1fr);
     grid-template-areas:
-        "cep cep ... log log log log ... bai bai bai"
-        "com com com ... num num ... est ... cid cid";
+        "cep cep cep log log log log log bai bai bai"
+        "com com com com num num num est cid cid cid";
 }
 
 .cep {
