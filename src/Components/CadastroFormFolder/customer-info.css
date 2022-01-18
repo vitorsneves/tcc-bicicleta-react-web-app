@@ -1,0 +1,49 @@
+.pessoa-section {
+    transition: height 500ms;
+}
+
+/* Pessoa fisica field */
+
+.pessoa-section.fisica {
+    height: 160px;
+}
+
+.pessoa-fields {
+    display: flex;
+    margin: 10px;
+    gap: 40px;
+}
+
+/* Pessoa juridica field */
+
+.pessoa-section.juridica {
+    height: 500px;
+}
+
+/* Animations */
+
+@keyframes spawn {
+    from {
+        left: -10px;
+        opacity: 0;
+    }
+
+    to {
+        left: 0;
+        opacity: 1;
+    }
+}
+
+/* Media query */
+
+@media only screen and (max-width: 890px) {
+    .form {
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        overflow: scroll;
+    }
+}
+

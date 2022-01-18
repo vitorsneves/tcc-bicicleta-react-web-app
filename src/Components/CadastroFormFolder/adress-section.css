@@ -1,0 +1,38 @@
+.adress-section {
+    display: grid;
+    row-gap: 30px;
+    place-items: stretch;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-areas:
+        "cep cep ... log log log log ... bai bai bai"
+        "com com com ... num num ... est ... cid cid";
+}
+
+.cep {
+    grid-area: cep;
+}
+
+.logradouro {
+    grid-area: log;
+}
+
+.bairro {
+    grid-area: bai;
+}
+
+.complemento {
+    grid-area: com;
+}
+
+.numero {
+    grid-area: num;
+}
+
+.estado {
+    grid-area: est;
+}
+
+.cidade {
+    grid-area: cid;
+}

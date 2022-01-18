@@ -1,0 +1,15 @@
+.contact-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.email {
+    width: 100px;
+    flex: 2 1 auto;
+}
+
+.telefone {
+    width: 50px;
+    flex: 1 1 auto;
+}
