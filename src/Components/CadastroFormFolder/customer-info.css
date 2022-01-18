@@ -8,31 +8,69 @@
     height: 160px;
 }
 
-.pessoa-fields {
+.fisica-fields {
     display: flex;
     margin: 10px;
     gap: 40px;
 }
 
+.fisica-input {
+    flex-grow: 1;
+    min-width: 100px;
+    animation: gambiarra 500ms;
+}
+
+.nome {
+    width: 10px;
+    flex: 5 1 auto;
+}
+
+.cpf {
+    width: 10px;
+    flex: 3 2 auto;
+}
+
+.nascimento {
+    width: 10px;
+    flex: 2 1 auto;
+}
+
 /* Pessoa juridica field */
 
 .pessoa-section.juridica {
-    height: 500px;
+    height: 222px;
 }
 
-/* Animations */
-
-@keyframes spawn {
-    from {
-        left: -10px;
-        opacity: 0;
-    }
-
-    to {
-        left: 0;
-        opacity: 1;
-    }
+.juridica-fields {
+    display: grid;
+    row-gap: 30px;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-areas:
+        "FANTA FANTA FANTA FANTA FANTA FANTA ..... CNPJ- CNPJ- CNPJ- CNPJ- CNPJ-"
+        "IE--- IE--- IE--- ..... RAZAO RAZAO RAZAO RAZAO ..... ABERT ABERT ABERT"
 }
+
+.cnpj {
+    grid-area: CNPJ-;
+}
+
+.nome-fantasia {
+    grid-area: FANTA;
+}
+
+.razao-social {
+    grid-area: RAZAO;
+}
+
+.data-abertura {
+    grid-area: ABERT;
+}
+
+.inscricao-estadual {
+    grid-area: IE---
+}
+
 
 /* Media query */
 

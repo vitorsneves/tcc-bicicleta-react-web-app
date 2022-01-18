@@ -23,6 +23,71 @@ const CadastroForm = () => {
         reset({});
     }
 
+    const loadPersonField = () => {
+        if(personType == "fisica") {
+            return (
+                <div className="fisica-fields">
+                    <TextField
+                        label="Nome"
+                        className="nome fisica-input"
+                        {...register("cep")}
+                        {...textFieldProps}
+                    />
+                    <TextField
+                        label="CPF"
+                        className="cpf fisica-input"
+                        {...register("cep")}
+                        {...textFieldProps}
+                    />
+                    <TextField
+                        label="Nascimento"
+                        className="nascimento fisica-input"
+                        {...register("cep")}
+                        {...textFieldProps}
+                    />
+                </div>
+            );
+        }
+
+        if(personType == "juridica") {
+            return(
+                <div className="juridica-fields">
+                    <TextField
+                        label="CNPJ"
+                        className="cnpj spawning-input"
+                        {...register("cep")}
+                        {...textFieldProps}
+                    />
+                    <TextField
+                        label="Nome Fantasia"
+                        className="nome-fantasia spawning-input"
+                        {...register("cep")}
+                        {...textFieldProps}
+                    />
+                    <TextField
+                        label="Razão social"
+                        className="razao-social spawning-input"
+                        {...register("cep")}
+                        {...textFieldProps}
+                    />
+                    <TextField
+                        label="Data de abertura"
+                        className="data-abertura spawning-input"
+                        {...register("cep")}
+                        {...textFieldProps}
+                    />
+                    <TextField
+                        label="Inscrição estadual"
+                        className="inscricao-estadual spawning-input"
+                        {...register("cep")}
+                        {...textFieldProps}
+                    />
+                </div>
+                
+            );
+        }
+    }
+
     const togglePersonType = (event) => {
         setPersonType(event.target.value);
     }
@@ -35,7 +100,7 @@ const CadastroForm = () => {
 
     return(
         <>
-            <button onClick={toggleModal}>aaaaaaa</button>
+            <button className="awesome-button" onClick={toggleModal}>css is awesome</button>
             <Modal className="modal"
             open={isOpen}
             onClose={toggleModal}
@@ -66,20 +131,7 @@ const CadastroForm = () => {
                                     label="jurídica" />
                             </RadioGroup>
                         </FormControl>
-                        <div className="pessoa-fields">
-                            <TextField
-                                label="CPF"
-                                className="cep input"
-                                {...register("cep")}
-                                {...textFieldProps}
-                            />
-                            <TextField
-                                label="Nascimento"
-                                className="cep input"
-                                {...register("cep")}
-                                {...textFieldProps}
-                            />
-                        </div>
+                        {loadPersonField()}
                     </div>
                     {/* End of customer information */}
         
@@ -88,43 +140,43 @@ const CadastroForm = () => {
                     <grid className="adress-section">
                         <TextField
                             label="CEP"
-                            className="cep input"
+                            className="cep"
                             {...register("cep")}
                             {...textFieldProps}
                         />
                         <TextField
                             label="Logradouro"
-                            className="logradouro input"
+                            className="logradouro"
                             {...register("logradouro")}
                             {...textFieldProps}
                         />
                         <TextField
                             label="Bairro"
-                            className="bairro input"
+                            className="bairro"
                             {...register("bairro")}
                             {...textFieldProps}
                         />
                         <TextField
                             label="Complemento"
-                            className="complemento input"
+                            className="complemento"
                             {...register("complemento")}
                             {...textFieldProps}
                         />
                         <TextField
                             label="Número"
-                            className="numero input"
+                            className="numero"
                             {...register("numero")}
                             {...textFieldProps}
                         />
                         <TextField
                             label="UF"
-                            className="estado input"
+                            className="estado"
                             {...register("estado")}
                             {...textFieldProps}
                         />
                         <TextField
                             label="Cidade"
-                            className="cidade input"
+                            className="cidade"
                             {...register("cidade")}
                             {...textFieldProps}
                         />
@@ -136,7 +188,7 @@ const CadastroForm = () => {
                     <grid className="contact-section">
                         <TextField
                                 label="email"
-                                className="email input"
+                                className="email"
                                 {...register("email")}
                                 {...textFieldProps}
                         />
@@ -148,13 +200,18 @@ const CadastroForm = () => {
                         />
                         <TextField
                             label="Telefone Fixo"
-                            className="telefone input"
+                            className="telefone"
                             {...register("fixo")}
                             {...textFieldProps}
                         />
                     </grid>
                     {/* End of the contact section */}
 
+                    {/* Submit and cancel buttons */}
+                    <div className="submit-section">
+                        <input className="confirm-button" type="submit" value="CONFIRMAR" />
+                    </div>
+                    {/* End of submit and cancel buttons */}
                 </form>
             </Modal>
         </>
