@@ -11,6 +11,7 @@
 
 .cep {
     grid-area: cep;
+    z-index: 20;
 }
 
 .logradouro {

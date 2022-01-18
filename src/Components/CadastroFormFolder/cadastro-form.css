@@ -22,9 +22,9 @@
 .section-title {
     margin: 0 0 -45px 15px;
     position: relative;
-    z-index: 100;
+    z-index: 10;
     background-color: white;
-    width: 80px;
+    width: 85px;
     padding: 4px;
 }
 
