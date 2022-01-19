@@ -1,0 +1,38 @@
+.table-group {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.table-nav-buttons {
+    background-color: var(--table-nav-background);
+}
+
+.button-group {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 16px;
+    gap: 14px;
+}
+
+.table-placeholder {
+    background-color: var(--light-table-row);
+    flex-grow: 1;
+}
+
+.buttons {
+    border: 1px solid var(--buttons);
+    border-radius: 10px;
+    color: var(--buttons);
+    padding: 8px 14px;
+    font-size: 16px;
+    background-color: var(--table-nav-background);
+    transition: 200ms;
+}
+
+.buttons:hover {
+    color: var(--table-nav-background);
+    background-color: var(--buttons);
+}

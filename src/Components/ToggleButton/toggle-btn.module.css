@@ -1,0 +1,41 @@
+.options-container {
+    display: flex;
+    overflow: hidden;
+    border: 2px solid var(--buttons);
+    border-radius: 16px;
+    padding: 5px;
+    background-color: var(--table-nav-background);
+    gap: 6px;
+}
+
+.text {
+    font-size: 16px;
+    transition: color 400ms;
+    z-index: 50;
+}
+
+.highlight {
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    background-color: var(--buttons);
+    transition: 200ms;
+}
+
+/* Used to send the highlight div to left */
+.to-left {
+    left: 0px;
+}
+
+/* Sends the hightlight div to right */
+.to-right {
+    right: 0px;
+}
+
+.highligted-text {
+    color: var(--table-nav-background);
+}
+
+.normal-text {
+    color: var(--buttons);
+}

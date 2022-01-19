@@ -1,7 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
-* { 
-    box-sizing:border-box;
+:root {
+    --site-background: #0b090a;
+    --table-borders: #403d39;
+    --table-nav-background: #ccc5b9;
+    --table: #fffcf2;
+    --buttons: #0b090a;
+    --static-buttons: #41373b;
+    --hovered-buttons: #302d29;
+}
+
+* {
+    box-sizing: border-box;
     margin: 0px;
     padding: 0px;
     font-family: 'Poppins', sans-serif;
@@ -10,5 +20,5 @@
 .awesome-button {
     width: 80px;
     height: 80px;
-    font-size: 22px
+    font-size: 22px;
 }

@@ -1,0 +1,39 @@
+.table-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: var(--table);
+}
+
+.table {
+    flex-grow: 1;
+}
+
+.table-options-menu {
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--table-nav-background);
+    align-items: center;
+    padding-right: 16px;
+}
+
+.toggle-button {
+    margin-right: auto;
+}
+
+.buttons {
+    color: var(--table-nav-background);
+    background-color: var(--static-buttons);
+    border: none;
+    font-size: 16px;
+    padding: 0px 16px;
+    border-radius: 4px;
+    height: 40px;
+    margin: 0px 8px;
+    transition: 200ms;
+}
+
+.buttons:hover {
+    background-color: var(--hovered-buttons);
+}

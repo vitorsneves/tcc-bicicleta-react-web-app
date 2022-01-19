@@ -1,48 +1,52 @@
-import { FormControlLabel, FormControl, FormLabel, Radio, RadioGroup } from '@mui/material';
+import {
+    FormControlLabel,
+    FormControl,
+    FormLabel,
+    Radio,
+    RadioGroup
+} from '@mui/material';
 import { Modal, TextField } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 import Box from '@mui/material/Box';
 
 // The CSS used here was split though multiple files
-import "./adress-section.css";
-import "./cadastro-form.css";
-import "./contact-section.css";
-import "./customer-info.css";
+import './form.css';
+import './customer.css';
+import './adress.css';
+import './contact.css';
 
 // Common props that are shared among the text fields.
 const textFieldProps = {
-    size: "small",
-    variant: "outlined"
-}
+    size: 'small',
+    variant: 'outlined'
+};
 
 // There are two kinds of customers. (pessoa fisica e pessoa jurídica).
 // Each one has different input fields with different data.
 // The right input section is rendered conditionally by the function bellow.
 
 const renderRightPerson = (personType, register) => {
-    if(personType === "fisica") {
+    if (personType === 'fisica') {
         return renderPessoaFisicaSection(register);
     }
 
-    if(personType === "juridica") {
+    if (personType === 'juridica') {
         return renderPessoaJuridicaSection(register);
     }
-}
+};
 
 //------------------------------------> Returns pessoa section
 // This includes the radio buttons and the right field.
 
 const renderPersonSection = (personType, togglePersonType, register) => {
-    return(
+    return (
         <>
             {/* customer information section */}
 
-            <div className={"pessoa-section " + personType}>
+            <div className={'pessoa-section ' + personType}>
                 <FormControl>
-                    <FormLabel id="customer-type">
-                        Pessoa
-                    </FormLabel>
+                    <FormLabel id="customer-type">Pessoa</FormLabel>
                     <RadioGroup
                         aria-labelledby="customer-type"
                         onChange={togglePersonType}
@@ -50,13 +54,13 @@ const renderPersonSection = (personType, togglePersonType, register) => {
                         row
                     >
                         <FormControlLabel
-                            label="física" 
-                            value="fisica" 
-                            control={<Radio />} 
+                            label="física"
+                            value="fisica"
+                            control={<Radio />}
                         />
-                        <FormControlLabel 
-                            label="jurídica" 
-                            value="juridica" 
+                        <FormControlLabel
+                            label="jurídica"
+                            value="juridica"
                             control={<Radio />}
                         />
                     </RadioGroup>
@@ -67,7 +71,7 @@ const renderPersonSection = (personType, togglePersonType, register) => {
             {/* End of customer information */}
         </>
     );
-} 
+};
 
 //------------------------------------> Returns pessoaFisica section.
 const renderPessoaFisicaSection = (register) => {
@@ -76,67 +80,67 @@ const renderPessoaFisicaSection = (register) => {
             <TextField
                 label="Nome"
                 className="nome spawning-input"
-                {...register("nome")}
+                {...register('nome')}
                 {...textFieldProps}
             />
             <TextField
                 label="CPF"
                 className="cpf spawning-input"
-                {...register("cpf")}
+                {...register('cpf')}
                 {...textFieldProps}
             />
             <TextField
                 label="Nascimento"
                 className="nascimento spawning-input"
-                {...register("nascimento")}
+                {...register('nascimento')}
                 {...textFieldProps}
             />
         </div>
     );
-}
+};
 
 //------------------------------------> Returns pessoaJuridica section.
 const renderPessoaJuridicaSection = (register) => {
-    return(
+    return (
         <Box className="juridica-fields">
             <TextField
                 label="CNPJ"
                 className="cnpj spawning-input"
-                {...register("cnpj")}
+                {...register('cnpj')}
                 {...textFieldProps}
             />
             <TextField
                 label="Nome Fantasia"
                 className="nome-fantasia spawning-input"
-                {...register("nomeFantasia")}
+                {...register('nomeFantasia')}
                 {...textFieldProps}
             />
             <TextField
                 label="Razão social"
                 className="razao-social spawning-input"
-                {...register("razaoSocial")}
+                {...register('razaoSocial')}
                 {...textFieldProps}
             />
             <TextField
                 label="Data de abertura"
                 className="data-abertura spawning-input"
-                {...register("dataAbertura")}
+                {...register('dataAbertura')}
                 {...textFieldProps}
             />
             <TextField
                 label="Inscrição estadual"
                 className="inscricao-estadual spawning-input"
-                {...register("inscricaoEstadual")}
+                {...register('inscricaoEstadual')}
                 {...textFieldProps}
             />
         </Box>
     );
-}
+};
 
 //------------------------------------> Return adress section.
 
 const renderAdressSection = (register) => {
-    return(
+    return (
         <>
             {/* Adress section */}
 
@@ -145,51 +149,51 @@ const renderAdressSection = (register) => {
                 <TextField
                     label="CEP"
                     className="cep"
-                    {...register("cep")}
+                    {...register('cep')}
                     {...textFieldProps}
                 />
                 <TextField
                     label="Logradouro"
                     className="logradouro"
-                    {...register("logradouro")}
+                    {...register('logradouro')}
                     {...textFieldProps}
                 />
                 <TextField
                     label="Bairro"
                     className="bairro"
-                    {...register("bairro")}
+                    {...register('bairro')}
                     {...textFieldProps}
                 />
                 <TextField
                     label="Complemento"
                     className="complemento"
-                    {...register("complemento")}
+                    {...register('complemento')}
                     {...textFieldProps}
                 />
                 <TextField
                     label="Número"
                     className="numero"
-                    {...register("numero")}
+                    {...register('numero')}
                     {...textFieldProps}
                 />
                 <TextField
                     label="UF"
                     className="estado"
-                    {...register("estado")}
+                    {...register('estado')}
                     {...textFieldProps}
                 />
                 <TextField
                     label="Cidade"
                     className="cidade"
-                    {...register("cidade")}
+                    {...register('cidade')}
                     {...textFieldProps}
                 />
             </grid>
 
             {/* End of the adress section */}
         </>
-    );    
-}
+    );
+};
 
 //------------------------------------> Return contact section (phone number and email).
 
@@ -201,21 +205,21 @@ const renderContactSection = (register) => {
             <h3 className="section-title">Contato</h3>
             <grid className="contact-section">
                 <TextField
-                        label="email"
-                        className="email"
-                        {...register("email")}
-                        {...textFieldProps}
+                    label="email"
+                    className="email"
+                    {...register('email')}
+                    {...textFieldProps}
                 />
                 <TextField
                     label="Telefone Celular"
                     className="telefone Fixo"
-                    {...register("celular")}
+                    {...register('celular')}
                     {...textFieldProps}
                 />
                 <TextField
                     label="Telefone Fixo"
                     className="telefone"
-                    {...register("fixo")}
+                    {...register('fixo')}
                     {...textFieldProps}
                 />
             </grid>
@@ -223,55 +227,59 @@ const renderContactSection = (register) => {
             {/* End of the contact section */}
         </>
     );
-}
+};
 
 //------------------------------------> Return submit button;
 
 const renderSubmitSection = () => {
-    return(
+    return (
         <>
             {/* Submit and cancel buttons */}
 
             <div className="submit-section">
-                <input className="confirm-button" type="submit" value="CONFIRMAR" />
+                <input
+                    className="confirm-button"
+                    type="submit"
+                    value="CONFIRMAR"
+                />
             </div>
 
             {/* End of submit and cancel buttons */}
         </>
     );
-}
+};
 
-const CadastroForm = () => {
-    const [isOpen, setIsOpen] = useState( false );
+export const CadastroForm = ({ className, buttonText }) => {
+    const [isOpen, setIsOpen] = useState(false);
 
     // The person type can be física or jurídica.
-    const [personType, setPersonType] = useState("fisica");
+    const [personType, setPersonType] = useState('fisica');
 
-    const {register, handleSubmit, reset} = useForm();
+    const { register, handleSubmit, reset } = useForm();
 
     // Opens and closes modal.
     // It also cleans all the inputs on close.
     const toggleModal = () => {
         setIsOpen(!isOpen);
         reset({});
-    }
+    };
 
     const togglePersonType = (event) => {
         setPersonType(event.target.value);
-    }
+    };
 
     // Called when the user submits the form.
     // Use this to send info to API.
-    const onSubmit = (data) =>{
+    const onSubmit = (data) => {
         console.log(JSON.stringify(data));
-    }
+    };
 
-    return(
+    return (
         <>
             {/* Button used to open modal. Botão adicionar cadastro. */}
 
-            <button className="awesome-button" onClick={toggleModal}>
-                css is awesome
+            <button className={className} onClick={toggleModal}>
+                {buttonText}
             </button>
 
             {/* Modal section */}
@@ -279,15 +287,16 @@ const CadastroForm = () => {
                 className="modal"
                 open={isOpen}
                 onClose={toggleModal}
-                aria-labelledby="form-title" 
+                aria-labelledby="form-title"
             >
-                <form className={"form "} onSubmit={handleSubmit(onSubmit)}>
+                <form className={'form '} onSubmit={handleSubmit(onSubmit)}>
+                    <h2 id="form-title">CADASTRO</h2>
 
-                    <h2 id="form-title">
-                        CADASTRO
-                    </h2>
-
-                    {renderPersonSection(personType, togglePersonType, register)}
+                    {renderPersonSection(
+                        personType,
+                        togglePersonType,
+                        register
+                    )}
                     {renderAdressSection(register)}
                     {renderContactSection(register)}
 
@@ -298,6 +307,4 @@ const CadastroForm = () => {
             {/* End of modal section */}
         </>
     );
-}
-
-export default CadastroForm;
+};
