@@ -1,25 +1,62 @@
 import style from './styles.module.css';
+import { TextDocument } from '@styled-icons/entypo/TextDocument';
+import { FilePerson } from '@styled-icons/bootstrap/FilePerson';
 import { CadastroTable } from '../Tables/CadastroTable';
+import { DocumentsTable } from '../Tables/DocumentsTable';
+import { useState } from 'react';
 
 export const TableGroup = () => {
+    // Two options: "documentos" or "cadastros"
+    const [selectedTable, setSelectedTable] = useState('documentos');
+
+    const changeToDocumentos = () => {
+        setSelectedTable('documentos');
+    };
+
+    const changeToCadastros = () => {
+        setSelectedTable('cadastros');
+    };
+
     return (
         <div className={style['table-group']}>
             <nav className={style['table-nav-buttons']}>
                 <ul className={style['button-group']}>
                     <li>
-                        <button className={style.buttons}>DOCUMENTOS</button>
+                        <button
+                            className={
+                                style.buttons +
+                                ' ' +
+                                (selectedTable === 'cadastros' &&
+                                    style['selected-button'])
+                            }
+                            onClick={changeToCadastros}
+                        >
+                            <FilePerson size={26} />
+                            <p>CADASTROS</p>
+                        </button>
                     </li>
 
                     <li>
-                        <button className={style.buttons}>CADASTROS</button>
-                    </li>
-
-                    <li>
-                        <button className={style.buttons}>RECIBOS</button>
+                        <button
+                            onClick={changeToDocumentos}
+                            className={
+                                style.buttons +
+                                ' ' +
+                                (selectedTable === 'documentos' &&
+                                    style['selected-button'])
+                            }
+                        >
+                            <TextDocument size={26} />
+                            <p>DOCUMENTOS</p>
+                        </button>
                     </li>
                 </ul>
             </nav>
-            <CadastroTable />
+            {selectedTable === 'cadastros' ? (
+                <CadastroTable />
+            ) : (
+                <DocumentsTable />
+            )}
         </div>
     );
 };

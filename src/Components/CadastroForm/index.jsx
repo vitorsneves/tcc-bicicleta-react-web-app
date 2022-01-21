@@ -9,6 +9,7 @@ import { Modal, TextField } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Box from '@mui/material/Box';
+import AddIcon from '@mui/icons-material/Add';
 
 // The CSS used here was split though multiple files
 import './form.css';
@@ -94,6 +95,7 @@ const renderPessoaFisicaSection = (register) => {
                 className="nascimento spawning-input"
                 {...register('nascimento')}
                 {...textFieldProps}
+                type="date"
             />
         </div>
     );
@@ -126,6 +128,7 @@ const renderPessoaJuridicaSection = (register) => {
                 className="data-abertura spawning-input"
                 {...register('dataAbertura')}
                 {...textFieldProps}
+                type="date"
             />
             <TextField
                 label="Inscrição estadual"
@@ -279,6 +282,7 @@ export const CadastroForm = ({ className, buttonText }) => {
             {/* Button used to open modal. Botão adicionar cadastro. */}
 
             <button className={className} onClick={toggleModal}>
+                <AddIcon />
                 {buttonText}
             </button>
 
