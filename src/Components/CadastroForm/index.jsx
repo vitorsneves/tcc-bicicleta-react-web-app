@@ -6,10 +6,15 @@ import {
     RadioGroup
 } from '@mui/material';
 import { Modal, TextField } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import { makeStyles } from '@material-ui/styles';
+import { Close } from '@styled-icons/zondicons/Close';
 
 // The CSS used here was split though multiple files
 import './form.css';
@@ -20,27 +25,33 @@ import './contact.css';
 // Common props that are shared among the text fields.
 const textFieldProps = {
     size: 'small',
-    variant: 'outlined'
+    variant: 'outlined',
+    required: true
 };
 
 // There are two kinds of customers. (pessoa fisica e pessoa jurídica).
 // Each one has different input fields with different data.
 // The right input section is rendered conditionally by the function bellow.
 
-const renderRightPerson = (personType, register) => {
+const renderRightPerson = (personType, register, errors) => {
     if (personType === 'fisica') {
-        return renderPessoaFisicaSection(register);
+        return renderPessoaFisicaSection(register, errors);
     }
 
     if (personType === 'juridica') {
-        return renderPessoaJuridicaSection(register);
+        return renderPessoaJuridicaSection(register, errors);
     }
 };
 
 //------------------------------------> Returns pessoa section
 // This includes the radio buttons and the right field.
 
-const renderPersonSection = (personType, togglePersonType, register) => {
+const renderPersonSection = (
+    personType,
+    togglePersonType,
+    register,
+    errors
+) => {
     return (
         <>
             {/* customer information section */}
@@ -66,7 +77,7 @@ const renderPersonSection = (personType, togglePersonType, register) => {
                         />
                     </RadioGroup>
                 </FormControl>
-                {renderRightPerson(personType, register)}
+                {renderRightPerson(personType, register, errors)}
             </div>
 
             {/* End of customer information */}
@@ -75,65 +86,65 @@ const renderPersonSection = (personType, togglePersonType, register) => {
 };
 
 //------------------------------------> Returns pessoaFisica section.
-const renderPessoaFisicaSection = (register) => {
+const renderPessoaFisicaSection = (register, errors) => {
     return (
         <div className="fisica-fields">
             <TextField
                 label="Nome"
                 className="nome spawning-input"
+                inputProps={{ minLength: 3, maxLength: 50 }}
                 {...register('nome')}
                 {...textFieldProps}
             />
             <TextField
                 label="CPF"
                 className="cpf spawning-input"
+                error={errors.cpf}
+                helperText={errors.cpf ? errors.cpf.message : ''}
+                {...register('cpf', {
+                    pattern: {
+                        value: /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/,
+                        message: '000.000.000-00'
+                    }
+                })}
+                inputProps={{ maxLength: 14 }}
                 {...register('cpf')}
                 {...textFieldProps}
-            />
-            <TextField
-                label="Nascimento"
-                className="nascimento spawning-input"
-                {...register('nascimento')}
-                {...textFieldProps}
-                type="date"
             />
         </div>
     );
 };
 
 //------------------------------------> Returns pessoaJuridica section.
-const renderPessoaJuridicaSection = (register) => {
+const renderPessoaJuridicaSection = (register, errors) => {
     return (
         <Box className="juridica-fields">
             <TextField
                 label="CNPJ"
                 className="cnpj spawning-input"
+                error={errors.cnpj}
+                helperText={errors.cnpj ? errors.cnpj.message : ''}
+                {...register('cnpj', {
+                    pattern: {
+                        value: /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/,
+                        message: '00.000.000/0000-00'
+                    }
+                })}
                 {...register('cnpj')}
                 {...textFieldProps}
             />
             <TextField
                 label="Nome Fantasia"
                 className="nome-fantasia spawning-input"
+                inputProps={{ minLength: 3, maxLength: 50 }}
                 {...register('nomeFantasia')}
                 {...textFieldProps}
             />
             <TextField
                 label="Razão social"
                 className="razao-social spawning-input"
+                inputProps={{ minLength: 3, maxLength: 50 }}
                 {...register('razaoSocial')}
-                {...textFieldProps}
-            />
-            <TextField
-                label="Data de abertura"
-                className="data-abertura spawning-input"
-                {...register('dataAbertura')}
-                {...textFieldProps}
-                type="date"
-            />
-            <TextField
-                label="Inscrição estadual"
-                className="inscricao-estadual spawning-input"
-                {...register('inscricaoEstadual')}
                 {...textFieldProps}
             />
         </Box>
@@ -142,56 +153,131 @@ const renderPessoaJuridicaSection = (register) => {
 
 //------------------------------------> Return adress section.
 
-const renderAdressSection = (register) => {
+const renderUFdropdown = (register) => {
+    const estados = [
+        'AC',
+        'AL',
+        'AP',
+        'AM',
+        'BA',
+        'CE',
+        'ES',
+        'GO',
+        'MA',
+        'MT',
+        'MS',
+        'MG',
+        'PA',
+        'PB',
+        'PR',
+        'PE',
+        'PI',
+        'RJ',
+        'RN',
+        'RS',
+        'RO',
+        'RR',
+        'SC',
+        'SP',
+        'SE',
+        'TO',
+        'DF'
+    ];
+
+    const func = makeStyles(() => ({
+        menuPaper: {
+            maxHeight: 200
+        }
+    }));
+
+    const classes = func();
+
+    return (
+        <FormControl size="small" className="estado">
+            <InputLabel required id="estado-label">
+                UF
+            </InputLabel>
+            <Select
+                labelId="estado-label"
+                label="UF"
+                {...register('estado')}
+                defaultValue=""
+                MenuProps={{ classes: { paper: classes.menuPaper } }}
+                required
+            >
+                {estados.map((estado) => (
+                    <MenuItem value={estado}>{estado}</MenuItem>
+                ))}
+            </Select>
+        </FormControl>
+    );
+};
+
+const renderAdressSection = (register, errors) => {
     return (
         <>
             {/* Adress section */}
 
             <h3 className="section-title">Endereço</h3>
-            <grid className="adress-section">
+            <div className="adress-section">
                 <TextField
                     label="CEP"
                     className="cep"
-                    {...register('cep')}
+                    error={errors.cep}
+                    helperText={errors.cep ? errors.cep.message : ''}
+                    inputProps={{ maxLength: 10 }}
+                    {...register('cep', {
+                        pattern: {
+                            value: /^\d{5}-\d{3}$/,
+                            message: '00000-000'
+                        }
+                    })}
                     {...textFieldProps}
                 />
                 <TextField
                     label="Logradouro"
                     className="logradouro"
                     {...register('logradouro')}
+                    inputProps={{ minLength: 5, maxLength: 50 }}
                     {...textFieldProps}
                 />
                 <TextField
                     label="Bairro"
                     className="bairro"
                     {...register('bairro')}
+                    inputProps={{ minLength: 5, maxLength: 20 }}
                     {...textFieldProps}
                 />
                 <TextField
                     label="Complemento"
                     className="complemento"
                     {...register('complemento')}
+                    inputProps={{ maxLength: 50 }}
                     {...textFieldProps}
                 />
                 <TextField
                     label="Número"
                     className="numero"
-                    {...register('numero')}
+                    error={errors.numero}
+                    helperText={errors.numero ? errors.numero.message : ''}
+                    {...register('numero', {
+                        pattern: {
+                            value: /^[0-9\b]+$/,
+                            message: 'somente números'
+                        }
+                    })}
+                    inputProps={{ maxLength: 6 }}
                     {...textFieldProps}
                 />
-                <TextField
-                    label="UF"
-                    className="estado"
-                    {...register('estado')}
-                    {...textFieldProps}
-                />
+                {renderUFdropdown(register)}
                 <TextField
                     label="Cidade"
                     className="cidade"
                     {...register('cidade')}
+                    inputProps={{ minLength: 5, maxLength: 20 }}
                     {...textFieldProps}
                 />
-            </grid>
+            </div>
 
             {/* End of the adress section */}
         </>
@@ -200,46 +286,70 @@ const renderAdressSection = (register) => {
 
 //------------------------------------> Return contact section (phone number and email).
 
-const renderContactSection = (register) => {
+const renderContactSection = (register, errors) => {
     return (
         <>
             {/* Contact section */}
 
             <h3 className="section-title">Contato</h3>
-            <grid className="contact-section">
+            <div className="contact-section">
                 <TextField
                     label="email"
                     className="email"
-                    {...register('email')}
+                    type="email"
                     {...textFieldProps}
                 />
                 <TextField
                     label="Telefone Celular"
                     className="telefone Fixo"
-                    {...register('celular')}
+                    error={errors.telefoneCelular}
+                    helperText={
+                        errors.telefoneCelular
+                            ? errors.telefoneCelular.message
+                            : ''
+                    }
+                    {...register('telefoneCelular', {
+                        pattern: {
+                            value: /^\([1-9]{2}\) [0-9]{5}\-[0-9]{4}$/,
+                            message: '(00) 00000-0000'
+                        }
+                    })}
                     {...textFieldProps}
                 />
                 <TextField
                     label="Telefone Fixo"
                     className="telefone"
-                    {...register('fixo')}
+                    error={errors.telefoneFixo}
+                    helperText={
+                        errors.telefoneFixo ? errors.telefoneFixo.message : ''
+                    }
+                    {...register('telefoneFixo', {
+                        pattern: {
+                            value: /^\([1-9]{2}\) [0-9]{4}\-[0-9]{4}$/,
+                            message: '(00) 0000-0000'
+                        }
+                    })}
                     {...textFieldProps}
                 />
-            </grid>
+            </div>
 
             {/* End of the contact section */}
         </>
     );
 };
 
-//------------------------------------> Return submit button;
+//------------------------------------> Return submit button.
 
-const renderSubmitSection = () => {
+const renderSubmitSection = (toggleModal) => {
     return (
         <>
             {/* Submit and cancel buttons */}
 
             <div className="submit-section">
+                <button className="cancel-button" onClick={toggleModal}>
+                    <Close size={36} />
+                    <p>voltar</p>
+                </button>
                 <input
                     className="confirm-button"
                     type="submit"
@@ -252,13 +362,50 @@ const renderSubmitSection = () => {
     );
 };
 
+//-------------------------------------> Functions used to clean form cells.
+
+// Set useForm to listen to the right fields (PessoaFisicaSection or PessoaJuridicaSection).
+// It also cleans the text and unregister the wrong fields.
+const registerRightField = (person, register, unregister, resetField) => {
+    if (person === 'fisica') {
+        unregister(['cnpj', 'nomeFantasia', 'razaoSocial']);
+
+        register('nome');
+        register('cpf');
+
+        resetField('nome');
+        resetField('cpf');
+    }
+
+    if (person === 'juridica') {
+        unregister(['nome', 'cpf']);
+
+        register('cnpj');
+        register('nomeFantasia');
+        register('razaoSocial');
+
+        resetField('cnpj');
+        resetField('nomeFantasia');
+        resetField('razaoSocial');
+    }
+};
+
+//-------------------------------------//
+
 export const CadastroForm = ({ className, buttonText }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     // The person type can be física or jurídica.
     const [personType, setPersonType] = useState('fisica');
 
-    const { register, handleSubmit, reset } = useForm();
+    const {
+        register,
+        unregister,
+        handleSubmit,
+        reset,
+        resetField,
+        formState: { errors }
+    } = useForm();
 
     // Opens and closes modal.
     // It also cleans all the inputs on close.
@@ -269,6 +416,12 @@ export const CadastroForm = ({ className, buttonText }) => {
 
     const togglePersonType = (event) => {
         setPersonType(event.target.value);
+        registerRightField(
+            event.target.value,
+            register,
+            unregister,
+            resetField
+        );
     };
 
     // Called when the user submits the form.
@@ -299,12 +452,13 @@ export const CadastroForm = ({ className, buttonText }) => {
                     {renderPersonSection(
                         personType,
                         togglePersonType,
-                        register
+                        register,
+                        errors
                     )}
-                    {renderAdressSection(register)}
-                    {renderContactSection(register)}
+                    {renderAdressSection(register, errors)}
+                    {renderContactSection(register, errors)}
 
-                    {renderSubmitSection()}
+                    {renderSubmitSection(toggleModal)}
                 </form>
             </Modal>
 

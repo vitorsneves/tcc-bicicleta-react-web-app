@@ -41,10 +41,9 @@
 
 .submit-section {
     gap: 5px;
-    padding: 4px 40px;
+    padding: 4px 20px;
 }
 
-.cancel-button,
 .confirm-button {
     background-color: rgb(53, 53, 53);
     border: none;
@@ -58,15 +57,25 @@
 
 .cancel-button {
     float: left;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    transition: 200ms;
+    font-size: 16px;
+    gap: 6px;
 }
 
 .confirm-button {
     float: right;
 }
 
-.cancel-button:hover,
 .confirm-button:hover {
     background-color: rgb(0, 0, 0);
+}
+
+.cancel-button:hover {
+    color: red;
 }
 
 .spawning-input {

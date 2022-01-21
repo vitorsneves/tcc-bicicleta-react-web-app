@@ -1,16 +1,55 @@
 import axios from 'axios'
 
 export const GetPeople = async () => {
-    const response = await axios({
+    const fisicas = await axios({
         method: 'get',
-        url: 'http://localhost:5000/cadastros',
+        url: 'http://localhost:5000/pessoasFisicas',
         responseType: 'json'
-      })
-      return response.data
+    });
+
+    const juridicas = await axios({
+        method: 'get',
+        url: 'http://localhost:5000/pessoasJuridicas',
+        responseType: 'json'
+    });
+
+    let response = [];
+
+    fisicas.data.forEach((pessoaFisica) => {
+        let cadastro = {};
+
+        cadastro.id = pessoaFisica.id;
+        cadastro.cpf_cnpj = pessoaFisica.cpf;
+        cadastro.nome_razao = pessoaFisica.nome;
+        cadastro.cidade = pessoaFisica.cidade;
+        cadastro.estado = pessoaFisica.estado;
+        cadastro.bairro = pessoaFisica.bairro;
+        cadastro.logradouro = pessoaFisica.logradouro;
+        cadastro.numero = pessoaFisica.numero;
+    
+        response.push(cadastro);
+    });
+    
+    juridicas.data.forEach((pessoaJuridica) => {
+        let cadastro = {};
+        
+        cadastro.id = pessoaJuridica.id;
+        cadastro.cpf_cnpj = pessoaJuridica.cnpj;
+        cadastro.nome_razao = pessoaJuridica.razaoSocial;
+        cadastro.cidade = pessoaJuridica.cidade;
+        cadastro.estado = pessoaJuridica.estado;
+        cadastro.bairro = pessoaJuridica.bairro;
+        cadastro.logradouro = pessoaJuridica.logradouro;
+        cadastro.numero = pessoaJuridica.numero;
+        
+        response.push(cadastro);
+    });
+    
+    return response;
 };
 
-export const DeletePerson = () => {};
+export const DeletePerson = (id) => {
 
-export const UpdatePerson = () => {};
+};
 
 export const PostPerson = () => {};

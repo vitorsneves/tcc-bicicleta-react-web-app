@@ -37,7 +37,7 @@
   ],
   "pessoasJuridicas" : [
       {
-        "id": 4,
+        "id": 3,
         "nomeFantasia": "Clarice e Caio",
         "cnpj": "38.778.786/0001-45",
         "razaoSocial": "Pão todo dia",
@@ -54,28 +54,6 @@
         "logradouro": "Rua Miguel Matte",
         "numero": 400,
         "complemento": "Rua Miguel Matte"
-      }
-  ],
-  "cadastros" : [
-      {
-        "id": 4,
-        "cpf_cnpj": "38.778.786/0001-45",
-        "nome_razao": "Pão todo dia",
-        "cidade": "Goiânia",
-        "estado": "GO",
-        "bairro": "Vera Cruz",
-        "logradouro": "Rua Miguel Matte",
-        "numero": 400
-      },
-      {
-        "id": 1,
-        "cpf_cnpj": "056.071.210-38",
-        "nome_razao": "Priscila Vanessa Julia Barros",
-        "cidade": "Serra",
-        "estado": "ES",
-        "bairro": "Brotas",
-        "logradouro": "Rua Alfredo Chaves",
-        "numero": 600
       }
   ]
 }

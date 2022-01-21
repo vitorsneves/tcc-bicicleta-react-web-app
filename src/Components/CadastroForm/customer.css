@@ -41,14 +41,15 @@
 }
 
 .juridica-fields {
+    width: 100%;
     display: grid;
     row-gap: 30px;
     column-gap: 10px;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: auto auto;
     grid-template-columns: repeat(10, 1fr);
     grid-template-areas:
-        "FANTA FANTA FANTA FANTA FANTA FANTA CNPJ- CNPJ- CNPJ- CNPJ-"
-        "IE--- IE--- IE--- RAZAO RAZAO RAZAO RAZAO ABERT ABERT ABERT"
+        'FANTA FANTA FANTA FANTA FANTA FANTA FANTA FANTA FANTA FANTA FANTA'
+        'RAZAO RAZAO RAZAO RAZAO RAZAO RAZAO RAZAO CNPJ- CNPJ- CNPJ- CNPJ-';
 }
 
 .cnpj {
@@ -68,9 +69,8 @@
 }
 
 .inscricao-estadual {
-    grid-area: IE---
+    grid-area: IE---;
 }
-
 
 /* Media query */
 
@@ -84,4 +84,3 @@
         overflow: scroll;
     }
 }
-

@@ -65,6 +65,8 @@ export const CadastroTable = () => {
         GetPeople().then((response) => {
             setPeople(response);
         });
+
+        return () => {};
     }, []);
 
     return (
