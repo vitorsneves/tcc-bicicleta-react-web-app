@@ -50,18 +50,26 @@ export const GetPeople = async () => {
     return response;
 };
 
-export const DeletePerson = async (id) => {
-    await axios ({
-        method: 'delete',
-        url: `http://localhost:5000/pessoasFisicas/${id}`,
-        responseType: 'json'
-    });
+export const DeletePerson = async (id, person) => {
+    const response = null;
     
-    await axios ({
-        method: 'delete',
-        url: `http://localhost:5000/pessoasJuridicas/${id}`,
-        responseType: 'json'
-    });
+    if(person[0].tipo === 'fisica') {
+        response = await axios ({
+            method: 'delete',
+            url: `http://localhost:5000/pessoasFisicas/${id}`,
+            responseType: 'json'
+        });
+    }
+    
+    if(person[0].tipo === 'juridica') {
+        response = await axios ({
+            method: 'delete',
+            url: `http://localhost:5000/pessoasJuridicas/${id}`,
+            responseType: 'json'
+        });
+    }
+
+    console.log(response);
 }
 
 
@@ -81,4 +89,37 @@ export const PostPessoaJuridica = async (pessoaJuridica) => {
         url: 'http://localhost:5000/pessoasJuridicas',
         data: {...pessoaJuridica}
     })
+}
+
+export const getPessoaFisicaById = async (id) => {
+    console.log(`pessoa com id ${id}`);
+    return await axios({
+        method: 'get',
+        url: `http://localhost:5000/pessoasFisicas/${id}`,
+        responseType: 'json'
+    });
+}
+
+export const getPessoaJuridicaById = async (id) => {
+
+    console.log(`pessoa com id ${id}`);
+    return await axios({
+        method: 'get',
+        url: `http://localhost:5000/pessoasJuridicas/${id}`,
+        responseType: 'json'
+    });
+}
+
+export const getPessoa = async (id, tipo) => {
+    console.log(`Buscando por pessoa ${tipo} com id ${id}`);
+
+    if(tipo === 'fisica') {
+        const result = await getPessoaFisicaById(id);
+        return result;
+    }
+
+    if(tipo === 'juridica') {
+        const result = await getPessoaJuridicaById(id);
+        return result;
+    }
 }

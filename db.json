@@ -1,24 +1,37 @@
 {
-  "pessoasFisicas": [],
+  "pessoasFisicas": [
+    {
+      "nome": "fsadfasdfasdfasdf",
+      "cpf": "123.123.123-12",
+      "cep": "12456-123",
+      "logradouro": "sadfasdf",
+      "bairro": "asdfasdf",
+      "complemento": "asdfasdfasdf",
+      "numero": "32",
+      "estado": "PI",
+      "cidade": "afdssadf",
+      "telefoneCelular": "(52) 29393-4236",
+      "telefoneFixo": "(32) 1234-2313",
+      "email": "sadafasfafss@dasdasdasd",
+      "id": 2
+    }
+  ],
   "pessoasJuridicas": [
     {
-      "id": 333,
-      "nomeFantasia": "Clarice e Caio",
-      "cnpj": "38.778.786/0001-45",
-      "razaoSocial": "Pão todo dia",
-      "abertura": "1959-01-15",
-      "ie": "633.067.164.169",
-      "dataCadastro": "1959-01-15",
-      "estado": "GO",
-      "cidade": "Goiânia",
-      "bairro": "Vera Cruz",
-      "celular": "(62) 99321-2176",
-      "telefoneFixo": "(62) 99341-2176",
-      "email": "ddanielguilherme@ravi.com",
-      "cep": "85862-300",
-      "logradouro": "Rua Miguel Matte",
-      "numero": 400,
-      "complemento": "Rua Miguel Matte"
+      "cep": "42341-123",
+      "logradouro": "asdfasgsagd",
+      "bairro": "asdfasdf",
+      "complemento": "asdfsadf",
+      "numero": "32",
+      "estado": "PE",
+      "cidade": "asdfasdf",
+      "telefoneCelular": "(62) 99493-4236",
+      "telefoneFixo": "(32) 1234-2313",
+      "cnpj": "21.132.432/1242-32",
+      "nomeFantasia": "asdasdfasdf",
+      "email": "sadafasfafss@dasdasdasd",
+      "razaoSocial": "asdfasdfasdf",
+      "id": 4
     }
   ]
 }

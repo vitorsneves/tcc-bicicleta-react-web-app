@@ -4,7 +4,6 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
-import useWindowSize from '../TablesUtilities/WindowSizeHook';
 
 //---------------------------------------------> Toggle document type Button.
 

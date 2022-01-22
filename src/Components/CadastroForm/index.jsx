@@ -185,14 +185,6 @@ const renderUFdropdown = (register) => {
         'DF'
     ];
 
-    const func = makeStyles(() => ({
-        menuPaper: {
-            maxHeight: 200
-        }
-    }));
-
-    const classes = func();
-
     return (
         <FormControl size="small" className="estado">
             <InputLabel required id="estado-label">
@@ -203,7 +195,7 @@ const renderUFdropdown = (register) => {
                 label="UF"
                 {...register('estado')}
                 defaultValue=""
-                MenuProps={{ classes: { paper: classes.menuPaper } }}
+                MenuProps={{ classes: { paper: { maxHeight: 200 } } }}
                 required
             >
                 {estados.map((estado) => (
@@ -311,7 +303,7 @@ const renderContactSection = (register, errors) => {
                     }
                     {...register('telefoneCelular', {
                         pattern: {
-                            value: /^\([1-9]{2}\) [0-9]{5}\-[0-9]{4}$/,
+                            value: /^\([0-9]{2}\) [0-9]{5}\-[0-9]{4}$/,
                             message: '(00) 00000-0000'
                         }
                     })}
@@ -326,7 +318,7 @@ const renderContactSection = (register, errors) => {
                     }
                     {...register('telefoneFixo', {
                         pattern: {
-                            value: /^\([1-9]{2}\) [0-9]{4}\-[0-9]{4}$/,
+                            value: /^\([0-9]{2}\) [0-9]{4}\-[0-9]{4}$/,
                             message: '(00) 0000-0000'
                         }
                     })}

@@ -4,17 +4,28 @@ import { DataGrid } from '@mui/x-data-grid';
 import { CadastroForm } from '../../../Components/CadastroForm';
 import DeleteIcon from '@mui/icons-material/Delete';
 import translation from '../TablesUtilities/TableTranslation';
-import useWindowSize from '../TablesUtilities/WindowSizeHook';
 import { GetPeople, DeletePerson } from '../../../API/Cadastro.js';
+import { AditionalPersonInformation } from '../../../Components/AditionalPersonInformation';
 
 //---------------------------------------------> Table columns.
 
-const getColumns = (width) => {
+const getColumns = (getPerson) => {
     const rows = [
         {
             field: 'id',
-            headerName: 'id',
-            hide: true
+            headerName: 'INFO',
+            sortable: false,
+            disableColumnMenu: true,
+            headerAlign: 'center',
+            width: 80,
+            renderCell: (params) => {
+                return (
+                    <AditionalPersonInformation
+                        id={params.id}
+                        tipo={getPerson(params.id).tipo}
+                    />
+                );
+            }
         },
         {
             field: 'cpf_cnpj',
@@ -34,7 +45,8 @@ const getColumns = (width) => {
         {
             field: 'numero',
             headerName: 'Nº',
-            width: 7
+            width: 80,
+            type: 'number'
         },
         {
             field: 'bairro',
@@ -44,7 +56,7 @@ const getColumns = (width) => {
         {
             field: 'estado',
             headerName: 'UF',
-            width: 10
+            width: 80
         },
         {
             field: 'cidade',
@@ -53,17 +65,18 @@ const getColumns = (width) => {
         }
     ];
 
-    if (width < 1300) {
-        rows[2] = {};
-    }
-
     return rows;
 };
 
 //---------------------------------------------//
 
 const handleOnDelete = (selectedRows, setPeople, people) => {
-    selectedRows.forEach((rowId) => DeletePerson(rowId));
+    selectedRows.forEach((rowId) =>
+        DeletePerson(
+            rowId,
+            people.filter((person) => person.id === rowId)
+        )
+    );
 
     setPeople((prevState) => {
         return prevState.filter((row) => {
@@ -75,7 +88,6 @@ const handleOnDelete = (selectedRows, setPeople, people) => {
 };
 
 export const CadastroTable = () => {
-    const [width] = useWindowSize();
     const [people, setPeople] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
 
@@ -87,10 +99,15 @@ export const CadastroTable = () => {
         return () => {};
     }, []);
 
+    const getPerson = (id) => {
+        const rightPerson = people.filter((person) => person.id == id);
+        return rightPerson[0];
+    };
+
     return (
         <div className={styles['table-container']}>
             <DataGrid
-                columns={getColumns(width)}
+                columns={getColumns(getPerson)}
                 rows={people}
                 checkboxSelection
                 localeText={translation}
@@ -109,7 +126,7 @@ export const CadastroTable = () => {
                     className={styles.buttons}
                     title="Apagar linhas selecionadas."
                     onClick={() => {
-                        handleOnDelete(selectedRows, setPeople);
+                        handleOnDelete(selectedRows, setPeople, people);
                     }}
                 >
                     <DeleteIcon />

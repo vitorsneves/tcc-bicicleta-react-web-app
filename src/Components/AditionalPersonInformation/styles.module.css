@@ -1,0 +1,79 @@
+.infoButton {
+    background-color: transparent;
+    border: none;
+    transition: 100ms;
+    padding: 10px 16px;
+}
+
+.infoButton:hover {
+    position: relative;
+    animation: jump 100ms forwards;
+}
+
+@keyframes jump {
+    from {
+        top: 0px;
+    }
+    to {
+        top: -3px;
+    }
+}
+
+.cancelButton {
+    float: right;
+    margin: -12px 32px 24px;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    transition: 200ms;
+    font-size: 16px;
+    gap: 6px;
+}
+
+.cancelButton:hover {
+    color: red;
+}
+
+.modal {
+    display: grid;
+    place-items: center;
+    overflow: scroll;
+    padding: 48px;
+}
+
+.modalPane {
+    background-color: white;
+    border-radius: 6px;
+    width: 560px;
+}
+
+.modalPane > h1 {
+    margin: 24px 32px;
+}
+
+.informationContainer {
+    margin: 30px 0px 24px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.keyValueContainer {
+    padding: 12px 36px;
+}
+
+@media (max-width: 640px) {
+    .informationContainer {
+        flex-wrap: nowrap;
+        height: auto;
+    }
+
+    .modalPane {
+        width: 100vw;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+}
