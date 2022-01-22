@@ -15,6 +15,7 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import { makeStyles } from '@material-ui/styles';
 import { Close } from '@styled-icons/zondicons/Close';
+import { PostPessoaFisica, PostPessoaJuridica } from '../../API/Cadastro';
 
 // The CSS used here was split though multiple files
 import './form.css';
@@ -427,7 +428,9 @@ export const CadastroForm = ({ className, buttonText }) => {
     // Called when the user submits the form.
     // Use this to send info to API.
     const onSubmit = (data) => {
-        console.log(JSON.stringify(data));
+        if (personType === 'fisica') PostPessoaFisica(data);
+        if (personType === 'juridica') PostPessoaJuridica(data);
+        setIsOpen(false);
     };
 
     return (

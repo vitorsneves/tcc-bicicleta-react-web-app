@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 export const TableGroup = () => {
     // Two options: "documentos" or "cadastros"
-    const [selectedTable, setSelectedTable] = useState('documentos');
+    const [selectedTable, setSelectedTable] = useState('cadastros');
 
     const changeToDocumentos = () => {
         setSelectedTable('documentos');

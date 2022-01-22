@@ -1,59 +1,24 @@
 {
-  "pessoasFisicas": [
+  "pessoasFisicas": [],
+  "pessoasJuridicas": [
     {
-      "id": 1,
-      "nome": "Priscila Vanessa Julia Barros",
-      "cpf": "056.071.210-38",
-      "nascimento": "1959-01-15",
+      "id": 333,
+      "nomeFantasia": "Clarice e Caio",
+      "cnpj": "38.778.786/0001-45",
+      "razaoSocial": "Pão todo dia",
+      "abertura": "1959-01-15",
+      "ie": "633.067.164.169",
       "dataCadastro": "1959-01-15",
-      "estado": "ES",
-      "cidade": "Serra",
-      "bairro": "Brotas",
-      "celular": "(71) 98520-1127",
-      "telefoneFixo": "(71) 3660-3741",
+      "estado": "GO",
+      "cidade": "Goiânia",
+      "bairro": "Vera Cruz",
+      "celular": "(62) 99321-2176",
+      "telefoneFixo": "(62) 99341-2176",
       "email": "ddanielguilherme@ravi.com",
-      "cep": "29161-762",
-      "logradouro": "Rua Alfredo Chaves",
-      "numero": 600,
-      "complemento": "Travessa Antônio Bulcão"
-    },
-    {
-        "id": 2,
-        "nome": "Diogo Filipe Carlos Rezende",
-        "cpf": "785.253.879-75",
-        "nascimento": "1959-01-15",
-        "dataCadastro": "1959-01-15",
-        "estado": "GO",
-        "cidade": "Goiânia",
-        "bairro": "Conjunto Vera Cruz",
-        "celular": "(62) 99321-2176",
-        "telefoneFixo": "(62) 99341-2176",
-        "email": "daianenogueira20@cebrace.com",
-        "cep": "85862-300",
-        "logradouro": "Rua Miguel Matte",
-        "numero": 400,
-        "complemento": "Rua Miguel Matte"
-      }
-  ],
-  "pessoasJuridicas" : [
-      {
-        "id": 3,
-        "nomeFantasia": "Clarice e Caio",
-        "cnpj": "38.778.786/0001-45",
-        "razaoSocial": "Pão todo dia",
-        "abertura": "1959-01-15",
-        "ie": "633.067.164.169",
-        "dataCadastro": "1959-01-15",
-        "estado": "GO",
-        "cidade": "Goiânia",
-        "bairro": "Vera Cruz",
-        "celular": "(62) 99321-2176",
-        "telefoneFixo": "(62) 99341-2176",
-        "email": "ddanielguilherme@ravi.com",
-        "cep": "85862-300",
-        "logradouro": "Rua Miguel Matte",
-        "numero": 400,
-        "complemento": "Rua Miguel Matte"
-      }
+      "cep": "85862-300",
+      "logradouro": "Rua Miguel Matte",
+      "numero": 400,
+      "complemento": "Rua Miguel Matte"
+    }
   ]
 }

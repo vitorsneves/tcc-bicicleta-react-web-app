@@ -5,12 +5,17 @@ import { CadastroForm } from '../../../Components/CadastroForm';
 import DeleteIcon from '@mui/icons-material/Delete';
 import translation from '../TablesUtilities/TableTranslation';
 import useWindowSize from '../TablesUtilities/WindowSizeHook';
-import { GetPeople, PostPerson, DeletePerson } from '../../../API/Cadastro.js';
+import { GetPeople, DeletePerson } from '../../../API/Cadastro.js';
 
 //---------------------------------------------> Table columns.
 
 const getColumns = (width) => {
     const rows = [
+        {
+            field: 'id',
+            headerName: 'id',
+            hide: true
+        },
         {
             field: 'cpf_cnpj',
             headerName: 'CPF / CNPJ',
@@ -57,11 +62,24 @@ const getColumns = (width) => {
 
 //---------------------------------------------//
 
-export const CadastroTable = () => {
-    const [width, height] = useWindowSize();
-    const [people, setPeople] = useState([]);
+const handleOnDelete = (selectedRows, setPeople, people) => {
+    selectedRows.forEach((rowId) => DeletePerson(rowId));
 
-    useState(() => {
+    setPeople((prevState) => {
+        return prevState.filter((row) => {
+            return !selectedRows.some(
+                (deletedRowId) => deletedRowId === row.id
+            );
+        });
+    });
+};
+
+export const CadastroTable = () => {
+    const [width] = useWindowSize();
+    const [people, setPeople] = useState([]);
+    const [selectedRows, setSelectedRows] = useState([]);
+
+    useEffect(() => {
         GetPeople().then((response) => {
             setPeople(response);
         });
@@ -76,6 +94,10 @@ export const CadastroTable = () => {
                 rows={people}
                 checkboxSelection
                 localeText={translation}
+                selectionModel={selectedRows}
+                onSelectionModelChange={(selection) => {
+                    setSelectedRows(selection);
+                }}
             />
             <div className={styles['table-options-menu']}>
                 <CadastroForm
@@ -86,6 +108,9 @@ export const CadastroTable = () => {
                 <button
                     className={styles.buttons}
                     title="Apagar linhas selecionadas."
+                    onClick={() => {
+                        handleOnDelete(selectedRows, setPeople);
+                    }}
                 >
                     <DeleteIcon />
                     <p>DELETAR</p>

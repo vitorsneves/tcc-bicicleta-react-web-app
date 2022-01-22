@@ -26,6 +26,7 @@ export const GetPeople = async () => {
         cadastro.bairro = pessoaFisica.bairro;
         cadastro.logradouro = pessoaFisica.logradouro;
         cadastro.numero = pessoaFisica.numero;
+        cadastro.tipo = 'fisica';
     
         response.push(cadastro);
     });
@@ -41,6 +42,7 @@ export const GetPeople = async () => {
         cadastro.bairro = pessoaJuridica.bairro;
         cadastro.logradouro = pessoaJuridica.logradouro;
         cadastro.numero = pessoaJuridica.numero;
+        cadastro.tipo = 'juridica';
         
         response.push(cadastro);
     });
@@ -48,8 +50,35 @@ export const GetPeople = async () => {
     return response;
 };
 
-export const DeletePerson = (id) => {
+export const DeletePerson = async (id) => {
+    await axios ({
+        method: 'delete',
+        url: `http://localhost:5000/pessoasFisicas/${id}`,
+        responseType: 'json'
+    });
+    
+    await axios ({
+        method: 'delete',
+        url: `http://localhost:5000/pessoasJuridicas/${id}`,
+        responseType: 'json'
+    });
+}
 
+
+export const PostPessoaFisica = async (pessoaFisica) => {
+    console.log('teste')
+    console.log(pessoaFisica)
+    await axios({
+        method: 'post',
+        url: 'http://localhost:5000/pessoasFisicas',
+        data: {...pessoaFisica}
+    });
 };
 
-export const PostPerson = () => {};
+export const PostPessoaJuridica = async (pessoaJuridica) => {
+    await axios({
+        method: 'post',
+        url: 'http://localhost:5000/pessoasJuridicas',
+        data: {...pessoaJuridica}
+    })
+}
