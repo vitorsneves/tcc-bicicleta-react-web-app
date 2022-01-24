@@ -1,10 +1,3 @@
-import {
-    FormControlLabel,
-    FormControl,
-    FormLabel,
-    Radio,
-    RadioGroup
-} from '@mui/material';
 import { Modal, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -13,13 +6,18 @@ import AddIcon from '@mui/icons-material/Add';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
-import { Close } from '@styled-icons/zondicons/Close';
-import { PostPessoaFisica, PostPessoaJuridica } from '../../../API/Cadastro';
+import { PostParceiro } from '../../../API/Cadastro';
 import { SubmitSection } from '../FormComponents/SubmitSection';
-import { makeStyles } from '@material-ui/styles';
+import {
+    FormControlLabel,
+    FormControl,
+    FormLabel,
+    Radio,
+    RadioGroup
+} from '@mui/material';
 
 // The CSS used here was split though multiple files
-import './form.css';
+import formStyles from '../FormComponents/form.module.css';
 import './customer.css';
 import './adress.css';
 import './contact.css';
@@ -36,11 +34,11 @@ const textFieldProps = {
 // The right input section is rendered conditionally by the function bellow.
 
 const renderRightPerson = (personType, register, errors) => {
-    if (personType === 'fisica') {
+    if (personType === 'PESSOA FISICA') {
         return renderPessoaFisicaSection(register, errors);
     }
 
-    if (personType === 'juridica') {
+    if (personType === 'PESSOA JURIDICA') {
         return renderPessoaJuridicaSection(register, errors);
     }
 };
@@ -58,7 +56,9 @@ const renderPersonSection = (
         <>
             {/* customer information section */}
 
-            <div className={'pessoa-section ' + personType}>
+            <div
+                className={formStyles.section + ' pessoa-section ' + personType}
+            >
                 <FormControl>
                     <FormLabel id="customer-type">Pessoa</FormLabel>
                     <RadioGroup
@@ -69,12 +69,12 @@ const renderPersonSection = (
                     >
                         <FormControlLabel
                             label="física"
-                            value="fisica"
+                            value="PESSOA FISICA"
                             control={<Radio />}
                         />
                         <FormControlLabel
                             label="jurídica"
-                            value="juridica"
+                            value="PESSOA JURIDICA"
                             control={<Radio />}
                         />
                     </RadioGroup>
@@ -93,14 +93,14 @@ const renderPessoaFisicaSection = (register, errors) => {
         <div className="fisica-fields">
             <TextField
                 label="Nome"
-                className="nome spawning-input"
+                className={'nome' + ' ' + formStyles['spawning-input']}
                 inputProps={{ minLength: 3, maxLength: 50 }}
                 {...register('nome')}
                 {...textFieldProps}
             />
             <TextField
                 label="CPF"
-                className="cpf spawning-input"
+                className={'cpf' + ' ' + formStyles['spawning-input']}
                 error={errors.cpf}
                 helperText={errors.cpf ? errors.cpf.message : ''}
                 {...register('cpf', {
@@ -123,7 +123,7 @@ const renderPessoaJuridicaSection = (register, errors) => {
         <Box className="juridica-fields">
             <TextField
                 label="CNPJ"
-                className="cnpj spawning-input"
+                className={'cnpj' + ' ' + formStyles['spawning-input']}
                 error={errors.cnpj}
                 helperText={errors.cnpj ? errors.cnpj.message : ''}
                 {...register('cnpj', {
@@ -137,14 +137,14 @@ const renderPessoaJuridicaSection = (register, errors) => {
             />
             <TextField
                 label="Nome Fantasia"
-                className="nome-fantasia spawning-input"
+                className={'nome-fantasia' + ' ' + formStyles['spawning-input']}
                 inputProps={{ minLength: 3, maxLength: 50 }}
                 {...register('nomeFantasia')}
                 {...textFieldProps}
             />
             <TextField
                 label="Razão social"
-                className="razao-social spawning-input"
+                className={'razao-social' + ' ' + formStyles['spawning-input']}
                 inputProps={{ minLength: 3, maxLength: 50 }}
                 {...register('razaoSocial')}
                 {...textFieldProps}
@@ -212,8 +212,8 @@ const renderAdressSection = (register, errors) => {
         <>
             {/* Adress section */}
 
-            <h3 className="section-title">Endereço</h3>
-            <div className="adress-section">
+            <h3 className={formStyles['section-title']}>Endereço</h3>
+            <div className={formStyles.section + ' adress-section'}>
                 <TextField
                     label="CEP"
                     className="cep"
@@ -285,17 +285,18 @@ const renderContactSection = (register, errors) => {
         <>
             {/* Contact section */}
 
-            <h3 className="section-title">Contato</h3>
-            <div className="contact-section">
+            <h3 className={formStyles['section-title']}>Contato</h3>
+            <div className={formStyles.section + ' contact-section'}>
                 <TextField
                     label="email"
                     className="email"
                     type="email"
+                    {...register('email')}
                     {...textFieldProps}
                 />
                 <TextField
                     label="Telefone Celular"
-                    className="telefone Fixo"
+                    className="telefone"
                     error={errors.telefoneCelular}
                     helperText={
                         errors.telefoneCelular
@@ -311,7 +312,7 @@ const renderContactSection = (register, errors) => {
                     {...textFieldProps}
                 />
                 <TextField
-                    label="Telefone Fixo"
+                    label="Telefone"
                     className="telefone"
                     error={errors.telefoneFixo}
                     helperText={
@@ -337,7 +338,7 @@ const renderContactSection = (register, errors) => {
 // Set useForm to listen to the right fields (PessoaFisicaSection or PessoaJuridicaSection).
 // It also cleans the text and unregister the wrong fields.
 const registerRightField = (person, register, unregister, resetField) => {
-    if (person === 'fisica') {
+    if (person === 'PESSOA FISICA') {
         unregister(['cnpj', 'nomeFantasia', 'razaoSocial']);
 
         register('nome');
@@ -347,7 +348,7 @@ const registerRightField = (person, register, unregister, resetField) => {
         resetField('cpf');
     }
 
-    if (person === 'juridica') {
+    if (person === 'PESSOA JURIDICA') {
         unregister(['nome', 'cpf']);
 
         register('cnpj');
@@ -366,7 +367,7 @@ export const CadastroForm = ({ className, buttonText }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     // The person type can be física or jurídica.
-    const [personType, setPersonType] = useState('fisica');
+    const [personType, setPersonType] = useState('PESSOA FISICA');
 
     const {
         register,
@@ -397,8 +398,7 @@ export const CadastroForm = ({ className, buttonText }) => {
     // Called when the user submits the form.
     // Use this to send info to API.
     const onSubmit = (data) => {
-        if (personType === 'fisica') PostPessoaFisica(data);
-        if (personType === 'juridica') PostPessoaJuridica(data);
+        PostParceiro({ ...data, tipo: personType });
         setIsOpen(false);
     };
 
@@ -413,13 +413,16 @@ export const CadastroForm = ({ className, buttonText }) => {
 
             {/* Modal section */}
             <Modal
-                className="modal"
+                className={formStyles['modal']}
                 open={isOpen}
                 onClose={toggleModal}
                 aria-labelledby="form-title"
             >
-                <form className={'form '} onSubmit={handleSubmit(onSubmit)}>
-                    <h2 id="form-title">CADASTRO</h2>
+                <form
+                    className={formStyles['form']}
+                    onSubmit={handleSubmit(onSubmit)}
+                >
+                    <h2 id={formStyles['form-title']}>CADASTRO</h2>
 
                     {renderPersonSection(
                         personType,

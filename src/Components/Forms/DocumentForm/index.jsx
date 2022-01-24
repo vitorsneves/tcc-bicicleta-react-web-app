@@ -8,6 +8,7 @@ import { Movimentacao } from './Movimentacao';
 import formStyles from '../FormComponents/form.module.css';
 import documentFormStyles from './document-form.module.css';
 import InputAdornment from '@mui/material/InputAdornment';
+import { postDocumento } from '../../../API/Documentos';
 
 //------------------------------------> Return document info fields.
 
@@ -34,10 +35,11 @@ const renderDocumentInfoSection = (register, errors) => {
             />
 
             <TextField
+                required
                 label="Observação"
                 className="observacao"
                 className={documentFormStyles.observacao}
-                {...register('logradouro')}
+                {...register('observacao')}
                 multiline
                 rows={3}
             />
@@ -65,7 +67,7 @@ export const DocumentForm = ({ className, buttonText }) => {
     };
 
     const onSubmit = (data) => {
-        console.log(data);
+        postDocumento(data);
         setIsOpen(false);
     };
 

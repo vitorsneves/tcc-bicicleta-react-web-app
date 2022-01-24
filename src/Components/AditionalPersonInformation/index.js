@@ -3,28 +3,60 @@ import Modal from '@mui/material/Modal';
 import styles from './styles.module.css';
 import Box from '@mui/material/Box';
 import { InfoSquare } from '@styled-icons/bootstrap/InfoSquare';
-import { getPessoa } from '../../API/Cadastro'
+import { getParceiro } from '../../API/Cadastro'
 import { Close } from '@styled-icons/zondicons/Close';
 
+const getDataForScreen = (person) => {
+    // This object contains the information that will be
+    // rendered on screen.
+    let data = {};
+    
+    if(person.tipo === "PESSOA FISICA") {
+        data.Nome = person.nomE_RAZAO;
+        data.CPF = person.cpF_CNPJ;
+    }
 
-const renderInformation = (data) => {
-    let information = [];
+    if(person.tipo === "PESSOA JURIDICA") {
+        data['Razão social'] = person.nomE_RAZAO;
+        data.CNPJ = person.cpF_CNPJ;
+    }
 
-    for (const key in data) {
-        information.push(
+    // Adress
+    data.CEP = person.cep;
+    data.Bairro = person.bairro;
+    data.Logradouro = person.logradouro;
+    data.Complemento = person.complemento;
+    data['Número'] = person.numero;
+    data.Estado = person.estado;
+    data.Cidade = person.cidade;
+
+    // Contact
+    data.email = person.email;
+    data["Telefone celular"] = person.telCelular;
+    data["Telefone fixo"] = person.telFixo;
+
+    return data;
+}
+
+const renderInformation = (person) => {
+    let informationToRender = [];
+    const dataForScreen = getDataForScreen(person)
+
+    for (const key in dataForScreen) {
+        informationToRender.push(
             <div key={key} className={styles.keyValueContainer}>
                 <h2>{key}</h2>
-                <p>{data[key]}</p>
+                <p>{dataForScreen[key]}</p>
             </div>
         );
     }
 
-    return information;
+    return informationToRender;
 }
 
-export const AditionalPersonInformation = ({id, tipo}) => {
+export const AditionalPersonInformation = ({ cpf_cnpj }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [information, setInformation] = useState([]);    
+    const [informationToRender, setInformationToRender] = useState([]);    
     
     const openOrClose = (event) => {
         event.stopPropagation();
@@ -35,7 +67,7 @@ export const AditionalPersonInformation = ({id, tipo}) => {
 
     useEffect(() => {
     if(isModalOpen) {
-        getPessoa(id, tipo).then(({ data }) => {setInformation(renderInformation(data))})
+        getParceiro(cpf_cnpj).then((person) => {setInformationToRender(renderInformation(person))})
     }}, [isModalOpen])
 
 
@@ -52,7 +84,7 @@ export const AditionalPersonInformation = ({id, tipo}) => {
                 <Box className={styles.modalPane}>
                     <h1>INFORMAÇÕES ADICIONAIS</h1>
                     <div className={styles.informationContainer}>
-                        {information}
+                        {informationToRender}
                     </div>        
                     <button className={styles.cancelButton} onClick={openOrClose}>
                     <Close size={36} />

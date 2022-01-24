@@ -10,19 +10,19 @@ export const Movimentacao = ({ control, className }) => {
             rules={{ required: true }}
             control={control}
             name="movimentacao"
-            defaultValue={'pagamento'}
+            defaultValue={'Pagamento'}
             render={({ field }) => {
                 return (
                     <div className={className}>
                         <h3>Tipo de movimentação financeira:</h3>
                         <RadioGroup {...field}>
                             <FormControlLabel
-                                value="pagamento"
+                                value="Pagamento"
                                 control={<Radio />}
                                 label="Pagamento"
                             />
                             <FormControlLabel
-                                value="recebimento"
+                                value="Recebimento"
                                 control={<Radio />}
                                 label="Recebimento"
                             />

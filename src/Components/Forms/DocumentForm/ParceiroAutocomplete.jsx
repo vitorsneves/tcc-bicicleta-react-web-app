@@ -11,7 +11,7 @@ export const ParceiroAutocomplete = ({ control, className }) => {
 
     useEffect(() => {
         GetPeople().then((response) => {
-            setParceiros(response);
+            setParceiros(response.data);
         });
     }, []);
 
@@ -24,7 +24,9 @@ export const ParceiroAutocomplete = ({ control, className }) => {
                 render={({ field: { onChange, value } }) => (
                     <Autocomplete
                         options={parceiros}
-                        getOptionLabel={(option) => option.nome_razao}
+                        getOptionLabel={(option) =>
+                            option.nomE_RAZAO + ' - ' + option.cpF_CNPJ
+                        }
                         renderInput={(params) => {
                             return (
                                 <TextField

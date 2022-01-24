@@ -1,53 +1,64 @@
 import axios from 'axios'
 
 export const GetPeople = async () => {
-    const fisicas = await axios({
+    const response =  await axios({
         method: 'get',
-        url: 'http://localhost:5000/pessoasFisicas',
+        url: 'https://9dcc-187-32-90-1.ngrok.io/parceiros',
         responseType: 'json'
     });
 
-    const juridicas = await axios({
-        method: 'get',
-        url: 'http://localhost:5000/pessoasJuridicas',
-        responseType: 'json'
-    });
-
-    let response = [];
-
-    fisicas.data.forEach((pessoaFisica) => {
-        let cadastro = {};
-
-        cadastro.id = pessoaFisica.id;
-        cadastro.cpf_cnpj = pessoaFisica.cpf;
-        cadastro.nome_razao = pessoaFisica.nome;
-        cadastro.cidade = pessoaFisica.cidade;
-        cadastro.estado = pessoaFisica.estado;
-        cadastro.bairro = pessoaFisica.bairro;
-        cadastro.logradouro = pessoaFisica.logradouro;
-        cadastro.numero = pessoaFisica.numero;
-        cadastro.tipo = 'fisica';
-    
-        response.push(cadastro);
-    });
-    
-    juridicas.data.forEach((pessoaJuridica) => {
-        let cadastro = {};
-        
-        cadastro.id = pessoaJuridica.id;
-        cadastro.cpf_cnpj = pessoaJuridica.cnpj;
-        cadastro.nome_razao = pessoaJuridica.razaoSocial;
-        cadastro.cidade = pessoaJuridica.cidade;
-        cadastro.estado = pessoaJuridica.estado;
-        cadastro.bairro = pessoaJuridica.bairro;
-        cadastro.logradouro = pessoaJuridica.logradouro;
-        cadastro.numero = pessoaJuridica.numero;
-        cadastro.tipo = 'juridica';
-        
-        response.push(cadastro);
-    });
-    
     return response;
+};
+
+export const getParceiro = async (cpf_cnpj) => {
+    console.log(`fetching parceiro with cpf_cnpj ${cpf_cnpj}`)
+
+    const response = await axios({
+        method: 'get',
+        url: "https://9dcc-187-32-90-1.ngrok.io/parceiros/buscar",
+        params: {
+            filtro: cpf_cnpj
+        },
+        responseType: 'json'
+    });
+
+    return response.data[0];
+}
+
+export const PostParceiro = async (person) => {
+    const dataToPost = {
+        cep: person.cep.match( /\d+/g ).join(''),
+        logradouro: person.logradouro,
+        numero: person.numero,
+        complemento: person.complemento,
+        bairro: person.bairro,
+        cidade: person.cidade,
+        estado: person.estado,
+        telCelular: person.telefoneCelular.match( /\d+/g ).join(''),
+        telFixo: person.telefoneFixo.match( /\d+/g ).join(''),
+        email: person.email,
+    }
+
+    if(person.tipo === "PESSOA FISICA") {
+        dataToPost.cpF_CNPJ = person.cpf.match( /\d+/g ).join('');
+        dataToPost.nome_Razao = person.nome;
+    }
+
+    if(person.tipoe === "PESSOA JURIDICA") {
+        dataToPost.cpF_CNPJ = person.cnpj.match( /\d+/g ).join('');
+        dataToPost.nome_Razao = person.razaoSocial;
+    }
+
+    dataToPost.tipo = person.tipo;
+    dataToPost.empresaID = "ade03a2a-9f87-4402-97c9-2344b839ae2c";
+
+    console.log(dataToPost);
+
+    await axios({
+        method: 'post',
+        url: 'https://9dcc-187-32-90-1.ngrok.io/cadastrar',
+        data: {...dataToPost}
+    });
 };
 
 export const DeletePerson = async (id, person) => {
@@ -70,54 +81,4 @@ export const DeletePerson = async (id, person) => {
     }
 
     console.log(response);
-}
-
-
-export const PostPessoaFisica = async (pessoaFisica) => {
-    await axios({
-        method: 'post',
-        url: 'http://localhost:5000/pessoasFisicas',
-        data: {...pessoaFisica}
-    });
-};
-
-export const PostPessoaJuridica = async (pessoaJuridica) => {
-    await axios({
-        method: 'post',
-        url: 'http://localhost:5000/pessoasJuridicas',
-        data: {...pessoaJuridica}
-    })
-}
-
-export const getPessoaFisicaById = async (id) => {
-    console.log(`pessoa com id ${id}`);
-    return await axios({
-        method: 'get',
-        url: `http://localhost:5000/pessoasFisicas/${id}`,
-        responseType: 'json'
-    });
-}
-
-export const getPessoaJuridicaById = async (id) => {
-
-    console.log(`pessoa com id ${id}`);
-    return await axios({
-        method: 'get',
-        url: `http://localhost:5000/pessoasJuridicas/${id}`,
-        responseType: 'json'
-    });
-}
-
-export const getPessoa = async (id, tipo) => {
-    console.log(`Buscando por pessoa ${tipo} com id ${id}`);
-
-    if(tipo === 'fisica') {
-        const result = await getPessoaFisicaById(id);
-        return result;
-    }
-
-    if(tipo === 'juridica') {
-        const result = await getPessoaJuridicaById(id);
-        return result;
-    }
 }

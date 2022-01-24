@@ -21,19 +21,18 @@ const getColumns = (getPerson) => {
             renderCell: (params) => {
                 return (
                     <AditionalPersonInformation
-                        id={params.id}
-                        tipo={getPerson(params.id).tipo}
+                        cpf_cnpj={getPerson(params.id).cpF_CNPJ}
                     />
                 );
             }
         },
         {
-            field: 'cpf_cnpj',
+            field: 'cpF_CNPJ',
             headerName: 'CPF / CNPJ',
             width: 190
         },
         {
-            field: 'nome_razao',
+            field: 'nomE_RAZAO',
             headerName: 'Nome / Razão Social',
             width: 300
         },
@@ -51,7 +50,7 @@ const getColumns = (getPerson) => {
         {
             field: 'bairro',
             headerName: 'Bairro',
-            width: 150
+            width: 190
         },
         {
             field: 'estado',
@@ -93,7 +92,12 @@ export const CadastroTable = () => {
 
     useEffect(() => {
         GetPeople().then((response) => {
-            setPeople(response);
+            setPeople(
+                response.data.map((person) => ({
+                    ...person,
+                    id: person.parceiroId
+                }))
+            );
         });
 
         return () => {};
