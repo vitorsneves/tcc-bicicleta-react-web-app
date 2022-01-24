@@ -71,16 +71,3 @@
 .inscricao-estadual {
     grid-area: IE---;
 }
-
-/* Media query */
-
-@media only screen and (max-width: 890px) {
-    .form {
-        width: 100vw;
-        height: 100vh;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        overflow: scroll;
-    }
-}

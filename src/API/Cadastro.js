@@ -74,8 +74,6 @@ export const DeletePerson = async (id, person) => {
 
 
 export const PostPessoaFisica = async (pessoaFisica) => {
-    console.log('teste')
-    console.log(pessoaFisica)
     await axios({
         method: 'post',
         url: 'http://localhost:5000/pessoasFisicas',

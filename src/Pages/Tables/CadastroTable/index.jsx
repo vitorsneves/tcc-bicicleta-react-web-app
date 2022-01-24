@@ -1,7 +1,7 @@
 import styles from '../TablesUtilities/tables.module.css';
 import { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { CadastroForm } from '../../../Components/CadastroForm';
+import { CadastroForm } from '../../../Components/Forms/CadastroForm';
 import DeleteIcon from '@mui/icons-material/Delete';
 import translation from '../TablesUtilities/TableTranslation';
 import { GetPeople, DeletePerson } from '../../../API/Cadastro.js';

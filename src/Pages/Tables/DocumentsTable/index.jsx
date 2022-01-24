@@ -4,6 +4,8 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
+import { DocumentForm } from '../../../Components/Forms/DocumentForm';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 //---------------------------------------------> Toggle document type Button.
 
@@ -55,10 +57,15 @@ export const DocumentsTable = () => {
                 localeText={translation}
             />
             <div className={styles['table-options-menu']}>
+                <DocumentForm
+                    className={styles.buttons}
+                    buttonText={'ADICIONAR'}
+                />
                 <button
                     className={styles.buttons}
                     title="Apagar linhas selecionadas."
                 >
+                    <DeleteIcon />
                     <p>DELETAR</p>
                 </button>
             </div>

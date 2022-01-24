@@ -13,9 +13,10 @@ import AddIcon from '@mui/icons-material/Add';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
-import { makeStyles } from '@material-ui/styles';
 import { Close } from '@styled-icons/zondicons/Close';
-import { PostPessoaFisica, PostPessoaJuridica } from '../../API/Cadastro';
+import { PostPessoaFisica, PostPessoaJuridica } from '../../../API/Cadastro';
+import { SubmitSection } from '../FormComponents/SubmitSection';
+import { makeStyles } from '@material-ui/styles';
 
 // The CSS used here was split though multiple files
 import './form.css';
@@ -195,7 +196,7 @@ const renderUFdropdown = (register) => {
                 label="UF"
                 {...register('estado')}
                 defaultValue=""
-                MenuProps={{ classes: { paper: { maxHeight: 200 } } }}
+                MenuProps={{ PaperProps: { sx: { maxHeight: 170 } } }}
                 required
             >
                 {estados.map((estado) => (
@@ -331,30 +332,6 @@ const renderContactSection = (register, errors) => {
     );
 };
 
-//------------------------------------> Return submit button.
-
-const renderSubmitSection = (toggleModal) => {
-    return (
-        <>
-            {/* Submit and cancel buttons */}
-
-            <div className="submit-section">
-                <button className="cancel-button" onClick={toggleModal}>
-                    <Close size={36} />
-                    <p>voltar</p>
-                </button>
-                <input
-                    className="confirm-button"
-                    type="submit"
-                    value="CONFIRMAR"
-                />
-            </div>
-
-            {/* End of submit and cancel buttons */}
-        </>
-    );
-};
-
 //-------------------------------------> Functions used to clean form cells.
 
 // Set useForm to listen to the right fields (PessoaFisicaSection or PessoaJuridicaSection).
@@ -453,7 +430,7 @@ export const CadastroForm = ({ className, buttonText }) => {
                     {renderAdressSection(register, errors)}
                     {renderContactSection(register, errors)}
 
-                    {renderSubmitSection(toggleModal)}
+                    <SubmitSection onCancel={toggleModal} />
                 </form>
             </Modal>
 

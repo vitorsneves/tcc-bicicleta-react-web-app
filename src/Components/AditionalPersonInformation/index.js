@@ -56,7 +56,7 @@ export const AditionalPersonInformation = ({id, tipo}) => {
                     </div>        
                     <button className={styles.cancelButton} onClick={openOrClose}>
                     <Close size={36} />
-                    <p>voltar</p>
+                    <p>voltar</p>   
                 </button>            
                 </Box>
             </Modal>

@@ -1,0 +1,27 @@
+.formFields {
+    margin: 48px 0px;
+    row-gap: 32px;
+    column-gap: 16px;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas:
+        'parsa parsa parsa parsa valor valor'
+        'obser obser obser obser obser obser';
+}
+
+.parceiro {
+    grid-area: parsa;
+}
+
+.valor {
+    grid-area: valor;
+}
+
+.observacao {
+    grid-area: obser;
+}
+
+.movimentacao {
+    margin: 24px 12px;
+}
