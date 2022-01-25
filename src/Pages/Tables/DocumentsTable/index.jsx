@@ -1,16 +1,16 @@
 import styles from '../TablesUtilities/tables.module.css';
 import translation from '../TablesUtilities/TableTranslation';
 import { DataGrid } from '@mui/x-data-grid';
-import { useState, useEffect } from 'react';
-import { DocumentPdf } from '@styled-icons/fluentui-system-regular/DocumentPdf';
+import { useState, useEffect, createRef } from 'react';
 import { OptionsMenu } from './OptionsMenu';
 import { getDocumentos } from '../../../API/Documentos';
+import { PrintDocument } from '../../../Components/PrintDocument';
 
 const getColumns = (getDocumento) => {
     const rows = [
         {
             field: 'id',
-            headerName: 'Gerar pdf',
+            headerName: 'Imprimir',
             sortable: false,
             disableColumnMenu: true,
             width: 110,
@@ -18,14 +18,18 @@ const getColumns = (getDocumento) => {
             renderCell: (params) => {
                 const onClick = (e) => {
                     e.stopPropagation();
-
-                    console.log(getDocumento(params.id));
                 };
 
                 return (
-                    <button onClick={onClick}>
-                        <DocumentPdf size={42} />
-                    </button>
+                    <div
+                        className={styles.rowButtonContainer}
+                        onClick={onClick}
+                    >
+                        <PrintDocument
+                            getDocumento={getDocumento}
+                            id={params.id}
+                        />
+                    </div>
                 );
             }
         },
@@ -91,7 +95,11 @@ export const DocumentsTable = () => {
     };
 
     const getDocumento = (id) => {
-        return documentos.filter((documento) => documento.id === id)[0];
+        const documento = documentos.filter(
+            (documento) => documento.id === id
+        )[0];
+        console.log(documento);
+        return documento;
     };
 
     return (

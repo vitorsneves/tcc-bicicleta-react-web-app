@@ -62,7 +62,7 @@ export const DocumentForm = ({ className, buttonText }) => {
     // Opens and closes modal.
     // It also cleans all the inputs on close.
     const toggleModal = () => {
-        setIsOpen(!isOpen);
+        setIsOpen((prevState) => !prevState);
         reset({});
     };
 

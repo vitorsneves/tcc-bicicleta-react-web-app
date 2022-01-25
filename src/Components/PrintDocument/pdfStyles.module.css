@@ -1,0 +1,105 @@
+.modal {
+    display: grid;
+    place-items: center;
+    overflow: scroll;
+    padding: 50px;
+}
+
+.pdfContainer {
+    background-color: white;
+    width: 800px;
+    padding: 40px;
+    border-radius: 8px;
+}
+
+.printerButton {
+    width: 50px;
+    height: 40px;
+    font-size: 3px;
+    border: none;
+    background-color: transparent;
+}
+
+#section-to-print {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#section-to-print > * {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#section-to-print > h1 {
+    font-size: 32px;
+}
+
+#section-to-print > p {
+    font-size: 18px;
+}
+
+#section-to-print > h1 {
+    margin-bottom: 24px;
+}
+
+.pdfText {
+    text-align: justify;
+}
+
+.local {
+    align-self: flex-start;
+    margin-top: 48px;
+    margin-bottom: 48px;
+}
+
+.signatureContainer {
+    border-top: solid 1px black;
+    width: 340px;
+    padding: 4px;
+    margin-top: 48px;
+}
+
+.signature {
+    text-align: center;
+}
+
+@media print {
+    @page {
+        margin: 0;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #section-to-print,
+    #section-to-print * {
+        visibility: visible;
+    }
+
+    #section-to-print {
+        margin: 1.6cm;
+        position: absolute;
+        left: 0;
+        top: 60px;
+    }
+
+    #section-to-print > h1 {
+        margin-bottom: 100px;
+    }
+
+    .local {
+        margin-bottom: 270px;
+    }
+}
+
+@media only screen and (max-width: 890px) {
+    .pdfContainer {
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        overflow: scroll;
+    }
+}

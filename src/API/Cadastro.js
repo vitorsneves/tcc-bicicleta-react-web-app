@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { formatPeopleResponse } from './FormatText' 
 
 export const GetPeople = async () => {
     const response =  await axios({
@@ -7,7 +8,7 @@ export const GetPeople = async () => {
         responseType: 'json'
     });
 
-    return response;
+    return formatPeopleResponse(response);
 };
 
 export const getParceiro = async (cpf_cnpj) => {
@@ -17,12 +18,12 @@ export const getParceiro = async (cpf_cnpj) => {
         method: 'get',
         url: "https://9dcc-187-32-90-1.ngrok.io/parceiros/buscar",
         params: {
-            filtro: cpf_cnpj
+            filtro: cpf_cnpj.match( /\d+/g ).join('')
         },
         responseType: 'json'
     });
 
-    return response.data[0];
+    return formatPeopleResponse(response).data[0];
 }
 
 export const PostParceiro = async (person) => {

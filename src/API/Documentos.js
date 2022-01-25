@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { formatDocumentResponse } from './FormatText' 
 
 export const getDocumentos = async () => {
     const response =  await axios({
@@ -7,7 +8,7 @@ export const getDocumentos = async () => {
         responseType: 'json'
     });
 
-    return response;
+    return formatDocumentResponse(response);
 }
 
 export const postDocumento = async (documento) => {
