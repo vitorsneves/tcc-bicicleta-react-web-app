@@ -72,10 +72,12 @@ export const AditionalPersonInformation = ({ cpf_cnpj }) => {
 
 
     return(
-        <>
-            <button className={styles.infoButton} onClick={openOrClose}>
-                <InfoSquare size={28} />
-            </button>
+        <> 
+            <div className={styles.buttonContainer}>
+                <button className={styles.infoButton} onClick={openOrClose}>
+                    <InfoSquare size={28} />
+                </button>
+            </div>
             <Modal
                 onClose={openOrClose}
                 open={isModalOpen}

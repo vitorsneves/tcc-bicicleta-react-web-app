@@ -5,7 +5,7 @@
 }
 
 .table-nav-buttons {
-    background-color: var(--table-nav-background);
+    background-color: var(--table-nav-up-background);
 }
 
 .button-group {
@@ -28,8 +28,8 @@
     color: var(--buttons);
     padding: 8px 14px;
     font-size: 16px;
-    background-color: var(--table-nav-background);
-    transition: 130ms;
+    background-color: var(--table-nav-up-background);
+    transition: 300ms;
     display: flex;
     height: 54px;
     gap: 10px;
@@ -37,10 +37,21 @@
 }
 
 .buttons:hover {
-    color: var(--table-nav-background);
+    color: var(--table-nav-up-background);
     background-color: var(--buttons);
 }
 
 .selected-button {
     text-decoration: underline;
+}
+
+.logoContainer {
+    margin-left: auto;
+    display: grid;
+    place-items: center;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
 }

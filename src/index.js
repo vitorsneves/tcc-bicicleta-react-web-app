@@ -4,8 +4,6 @@ import "./index.css";
 import { CentralizedPane } from './Components/CentralizedPane'
 import { TableGroup } from './Pages/TableGroup'
 
-const opcoes = ["matar", "morrer"];
-
 ReactDOM.render(
     <React.StrictMode> 
         <CentralizedPane>

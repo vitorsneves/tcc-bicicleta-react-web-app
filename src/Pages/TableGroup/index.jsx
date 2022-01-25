@@ -50,6 +50,14 @@ export const TableGroup = () => {
                             <p>DOCUMENTOS</p>
                         </button>
                     </li>
+
+                    <li className={style.logoContainer}>
+                        <img
+                            alt={'logo da aliare'}
+                            className={style.logo}
+                            src={require('../../assets/aliare-logo.png')}
+                        />
+                    </li>
                 </ul>
             </nav>
             {selectedTable === 'cadastros' ? (

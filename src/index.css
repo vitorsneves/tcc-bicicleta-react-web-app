@@ -1,13 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --site-background: #0b090a;
-    --table-borders: #403d39;
-    --table-nav-background: #ccc5b9;
-    --table: #fffcf2;
-    --buttons: #0b090a;
-    --static-buttons: #41373b;
-    --hovered-buttons: #302d29;
+    --site-background: #ab93fd;
+    --table-up-border: #01d483;
+    --table-nav-up-background: #01d483;
+    --table-nav-down-background: #01d483;
+    --table-down-border: #01d483;
+    --table: #fafffc;
+    --buttons: #000000;
+    --static-buttons: #000000;
+    --hovered-buttons: #fafffc;
+    /* roxo aliare #ab93fd */
 }
 
 * {

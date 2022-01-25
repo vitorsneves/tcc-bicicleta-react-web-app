@@ -33,12 +33,12 @@ const getColumns = (getPerson) => {
         },
         {
             field: 'nomE_RAZAO',
-            headerName: 'Nome / Razão Social',
+            headerName: 'NOME / RAZÃO SOCIAL',
             width: 300
         },
         {
             field: 'logradouro',
-            headerName: 'Logradouro',
+            headerName: 'LOGRADOURO',
             width: 250
         },
         {
@@ -49,7 +49,7 @@ const getColumns = (getPerson) => {
         },
         {
             field: 'bairro',
-            headerName: 'Bairro',
+            headerName: 'BAIRRO',
             width: 190
         },
         {
@@ -59,8 +59,8 @@ const getColumns = (getPerson) => {
         },
         {
             field: 'cidade',
-            headerName: 'Cidade',
-            width: 160
+            headerName: 'CIDADE',
+            width: 120
         }
     ];
 
@@ -120,6 +120,7 @@ export const CadastroTable = () => {
                     setSelectedRows(selection);
                 }}
             />
+
             <div className={styles['table-options-menu']}>
                 <CadastroForm
                     className={styles.buttons}
