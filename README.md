@@ -2,7 +2,7 @@
 
 Esse web app faz parte de um projeto final do programa "Bicicleta com rodinhas",
 conduzido pela aliare. Foi feito utilizando html, css, react e javascript (JSX).
-Trata-se de um CRUD que consome uma API. Nele, há a possíbilidade de
+Trata-se de um CRUD que consome uma API. Nele, há a possibilidade de
 cadastrar/apagar parceiros comerciais ou documentos. Também há a funcionalidade
 de imprimir um documento.
 
