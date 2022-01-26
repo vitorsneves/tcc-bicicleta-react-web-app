@@ -57,7 +57,11 @@ const renderPersonSection = (
             {/* customer information section */}
 
             <div
-                className={formStyles.section + ' pessoa-section ' + personType}
+                className={
+                    formStyles.section +
+                    ' pessoa-section ' +
+                    personType.toLowerCase().split(' ')[1]
+                }
             >
                 <FormControl>
                     <FormLabel id="customer-type">Pessoa</FormLabel>

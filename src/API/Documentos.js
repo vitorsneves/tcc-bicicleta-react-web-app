@@ -29,3 +29,13 @@ export const postDocumento = async (documento) => {
         }
     });
 }
+
+export const DeleteDocument = async (id) => {
+    
+    return await axios ({
+        method: 'delete',
+        url: `${api_url}/financeiro/${id}`,
+        responseType: 'json'
+    });
+    
+}

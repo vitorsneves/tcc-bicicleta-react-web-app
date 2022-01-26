@@ -1,9 +1,9 @@
 import styles from '../TablesUtilities/tables.module.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { DataGrid, GridOverlay, ptBR } from '@mui/x-data-grid';
-import { useState, useEffect, createRef } from 'react';
+import { useState, useEffect } from 'react';
 import { OptionsMenu } from './OptionsMenu';
-import { getDocumentos } from '../../../API/Documentos';
+import { getDocumentos, DeleteDocument } from '../../../API/Documentos';
 import { PrintDocument } from '../../../Components/PrintDocument';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -100,6 +100,7 @@ export const DocumentsTable = () => {
     // Posible states: paid, payable, all.
     const [selectedDocumentType, setSelectedDocumentType] = useState('tudo');
     const [documentos, setDocumentos] = useState([]);
+    const [selectedRows, setSelectedRows] = useState([]);
 
     useEffect(() => {
         getDocumentos().then(({ data }) => {
@@ -124,6 +125,27 @@ export const DocumentsTable = () => {
         return documento;
     };
 
+    const getMarkedToDeleteRows = () => {
+        return selectedRows.map((id) => {
+            const document = getDocumento(id);
+            if (document != null) {
+                return document.nomE_RAZAO + ' ' + document.observacao;
+            }
+        });
+    };
+
+    const handleOnDelete = () => {
+        selectedRows.forEach((rowId) => DeleteDocument(rowId));
+
+        setDocumentos((prevState) => {
+            return prevState.filter((row) => {
+                return !selectedRows.some(
+                    (deletedRowId) => deletedRowId === row.id
+                );
+            });
+        });
+    };
+
     const theme = createTheme(ptBR);
 
     return (
@@ -133,6 +155,10 @@ export const DocumentsTable = () => {
                     columns={getColumns(getDocumento)}
                     rows={getRows(documentos, selectedDocumentType)}
                     checkboxSelection
+                    selectionModel={selectedRows}
+                    onSelectionModelChange={(selection) => {
+                        setSelectedRows(selection);
+                    }}
                     components={{
                         NoRowsOverlay: CustomLoadingOverlay
                     }}
@@ -143,6 +169,9 @@ export const DocumentsTable = () => {
                 selectedDocumentType={selectedDocumentType}
                 handleToggleOnChange={handleToggleOnChange}
                 updateDocuments={updateDocuments}
+                getMarkedToDeleteRows={getMarkedToDeleteRows}
+                selectedRowCount={selectedRows.length}
+                deleteFuncion={handleOnDelete}
             />
         </div>
     );
