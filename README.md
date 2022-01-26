@@ -8,8 +8,11 @@ de imprimir um documento.
 
 ## 👥 Integrantes do grupo.
 
-*Ana Vitoria S. Da Luz Nascimento *Henrique Martins da S. Faria Espindola *Paulo
-Ricardo Amorim Silva *Vitor Belarmino Silva Neves \*eslley Cardoso Mariano
+-Ana Vitoria S. Da Luz Nascimento 
+-Henrique Martins da S. Faria Espindola 
+-Paulo Ricardo Amorim Silva 
+-Vitor Belarmino Silva Neves 
+-Weslley Cardoso Mariano
 
 ## 💻 Como executar
 
