@@ -1,15 +1,24 @@
 import pdfStyles from './pdfStyles.module.css';
 
+const numberToMoney = (number) => {
+    const moneyArray = (number.toFixed(2) + '').split('.');
+    const moneyString = moneyArray[0] + ',' + moneyArray[1];
+    return moneyString;
+}
+
 const getPrintData = (getDocumento, id) => {
+    var extenso = require('extenso');
+    const dateGetter = new Date();
     const documentData = getDocumento(id);
 
     // Dados que serão imprimidos.
     const specificDocumentData = {
-        valor: documentData.valor,
+        valor: documentData.valor.toFixed(2),
+        valorPorExtenso: extenso(numberToMoney(documentData.valor), { mode: 'currency' }),
         observacao: documentData.observacao,
         cidade: documentData.emP_Cidade,
         estado: documentData.emP_Estado,
-        hora: documentData.createdOn
+        date: dateGetter.getDate() + '/' + ('0' + (dateGetter.getMonth() + 1)).slice(-2) + '/' + dateGetter.getFullYear()
     }
     let recebe = {};
     let paga = {};
@@ -58,7 +67,6 @@ const dbDateToNormalDate = (dbDate) => {
     let normalDate = dbDate.slice(8, 10) + '/';
     normalDate += dbDate.slice(5, 7) + '/';
     normalDate += dbDate.slice(0, 4) + ' ';
-    normalDate += dbDate.slice(11, 16);
 
     return normalDate;
 }
@@ -75,9 +83,9 @@ export const renderPdf = (getDocumento, id) => {
                 , {recebe.complemento}, {recebe.cep}, {recebe.bairro},{' '}
                 {recebe.cidade}, {recebe.estado}, declaro para os devidos fins
                 que recebi de {paga.nome_razao} {paga.cpf_cnpj}
-                , o valor de R$ {specificDocumentData.valor} em virtude de {specificDocumentData.observacao}.
+                , o valor de R$ {specificDocumentData.valor} {"("}{specificDocumentData.valorPorExtenso}{")"} em virtude de {specificDocumentData.observacao}.
             </p>
-            <p className={pdfStyles.local}>{specificDocumentData.cidade}, {specificDocumentData.estado}, {dbDateToNormalDate(specificDocumentData.hora)}</p>
+            <p className={pdfStyles.local}>{specificDocumentData.cidade}, {specificDocumentData.estado}, {specificDocumentData.date}</p>
             <div className={pdfStyles.signatureContainer}>
                 <p className={pdfStyles.signature}>{recebe.nome_razao}<br/>{recebe.cpf_cnpj}</p>
             </div>

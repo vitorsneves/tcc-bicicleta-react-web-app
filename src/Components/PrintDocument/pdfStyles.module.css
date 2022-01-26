@@ -21,6 +21,7 @@
 }
 
 #section-to-print {
+    margin-bottom: 64px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,10 +58,40 @@
     width: 340px;
     padding: 4px;
     margin-top: 48px;
+    overflow: hidden;
 }
 
 .signature {
     text-align: center;
+}
+
+.gerarPdf {
+    background-color: black;
+    color: white;
+    padding: 8px 42px;
+    border-radius: 6px;
+    font-size: 22px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+        rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    transition: 300ms;
+    float: right;
+}
+
+.gerarPdf:hover {
+    background-color: rgb(39, 39, 39);
+    box-shadow: none;
+    animation: drop 300ms forwards;
+    position: relative;
+}
+
+@keyframes drop {
+    from {
+        top: 0px;
+    }
+    to {
+        top: 4px;
+    }
 }
 
 @media print {

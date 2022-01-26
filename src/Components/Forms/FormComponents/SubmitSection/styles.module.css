@@ -1,6 +1,9 @@
 .submit-section {
     gap: 5px;
     padding: 4px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .confirm-button {
@@ -15,7 +18,7 @@
 }
 
 .cancel-button {
-    float: left;
+    margin-right: auto;
     border: none;
     background-color: transparent;
     display: flex;
@@ -23,10 +26,6 @@
     transition: 200ms;
     font-size: 16px;
     gap: 6px;
-}
-
-.confirm-button {
-    float: right;
 }
 
 .confirm-button:hover {

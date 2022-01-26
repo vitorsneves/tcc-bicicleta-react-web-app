@@ -1,0 +1,11 @@
+.messageContainer {
+    margin-bottom: 36px;
+}
+
+.messageContainer > p:first-child {
+    margin-bottom: 12px;
+}
+
+.aditionalMessage {
+    margin-bottom: 24px;
+}

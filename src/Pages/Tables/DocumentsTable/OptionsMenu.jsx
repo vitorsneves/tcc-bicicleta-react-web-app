@@ -3,7 +3,11 @@ import styles from '../TablesUtilities/tables.module.css';
 import { DocumentForm } from '../../../Components/Forms/DocumentForm';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export const OptionsMenu = ({ selectedDocumentType, handleToggleOnChange }) => {
+export const OptionsMenu = ({
+    selectedDocumentType,
+    handleToggleOnChange,
+    updateDocuments
+}) => {
     return (
         <div className={styles['table-options-menu']}>
             <DocumentToggleButton
@@ -11,7 +15,11 @@ export const OptionsMenu = ({ selectedDocumentType, handleToggleOnChange }) => {
                 handleToggleOnChange={handleToggleOnChange}
             />
 
-            <DocumentForm className={styles.buttons} buttonText={'ADICIONAR'} />
+            <DocumentForm
+                className={styles.buttons}
+                buttonText={'ADICIONAR'}
+                updateDocuments={updateDocuments}
+            />
 
             <button
                 className={styles.buttons}

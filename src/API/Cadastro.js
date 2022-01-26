@@ -1,10 +1,12 @@
 import axios from 'axios'
 import { formatPeopleResponse } from './FormatText' 
 
+const api_url = 'https://a6e9-187-32-90-1.ngrok.io';
+
 export const GetPeople = async () => {
     const response =  await axios({
         method: 'get',
-        url: 'https://9dcc-187-32-90-1.ngrok.io/parceiros',
+        url: `${api_url}/parceiros`,
         responseType: 'json'
     });
 
@@ -12,11 +14,9 @@ export const GetPeople = async () => {
 };
 
 export const getParceiro = async (cpf_cnpj) => {
-    console.log(`fetching parceiro with cpf_cnpj ${cpf_cnpj}`)
-
     const response = await axios({
         method: 'get',
-        url: "https://9dcc-187-32-90-1.ngrok.io/parceiros/buscar",
+        url: `${api_url}/parceiros/buscar`,
         params: {
             filtro: cpf_cnpj.match( /\d+/g ).join('')
         },
@@ -45,7 +45,7 @@ export const PostParceiro = async (person) => {
         dataToPost.nome_Razao = person.nome;
     }
 
-    if(person.tipoe === "PESSOA JURIDICA") {
+    if(person.tipo === "PESSOA JURIDICA") {
         dataToPost.cpF_CNPJ = person.cnpj.match( /\d+/g ).join('');
         dataToPost.nome_Razao = person.razaoSocial;
     }
@@ -53,33 +53,19 @@ export const PostParceiro = async (person) => {
     dataToPost.tipo = person.tipo;
     dataToPost.empresaID = "ade03a2a-9f87-4402-97c9-2344b839ae2c";
 
-    console.log(dataToPost);
-
     await axios({
         method: 'post',
-        url: 'https://9dcc-187-32-90-1.ngrok.io/cadastrar',
+        url: `${api_url}/cadastrar`,
         data: {...dataToPost}
     });
 };
 
-export const DeletePerson = async (id, person) => {
-    const response = null;
+export const DeletePerson = async (id) => {
     
-    if(person[0].tipo === 'fisica') {
-        response = await axios ({
-            method: 'delete',
-            url: `http://localhost:5000/pessoasFisicas/${id}`,
-            responseType: 'json'
-        });
-    }
+    return await axios ({
+        method: 'delete',
+        url: `${api_url}/parceiros/${id}`,
+        responseType: 'json'
+    });
     
-    if(person[0].tipo === 'juridica') {
-        response = await axios ({
-            method: 'delete',
-            url: `http://localhost:5000/pessoasJuridicas/${id}`,
-            responseType: 'json'
-        });
-    }
-
-    console.log(response);
 }

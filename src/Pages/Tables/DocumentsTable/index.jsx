@@ -1,10 +1,11 @@
 import styles from '../TablesUtilities/tables.module.css';
-import translation from '../TablesUtilities/TableTranslation';
-import { DataGrid } from '@mui/x-data-grid';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { DataGrid, GridOverlay, ptBR } from '@mui/x-data-grid';
 import { useState, useEffect, createRef } from 'react';
 import { OptionsMenu } from './OptionsMenu';
 import { getDocumentos } from '../../../API/Documentos';
 import { PrintDocument } from '../../../Components/PrintDocument';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const getColumns = (getDocumento) => {
     const rows = [
@@ -78,6 +79,23 @@ const getRows = (documentos, selectedDocumentType) => {
     });
 };
 
+//---------------------------------------------> Loading
+
+function CustomLoadingOverlay() {
+    return (
+        <GridOverlay
+            style={{
+                width: '100%',
+                height: '100%',
+                display: 'grid',
+                placeContent: 'center'
+            }}
+        >
+            <CircularProgress />
+        </GridOverlay>
+    );
+}
+
 export const DocumentsTable = () => {
     // Posible states: paid, payable, all.
     const [selectedDocumentType, setSelectedDocumentType] = useState('tudo');
@@ -89,6 +107,11 @@ export const DocumentsTable = () => {
         });
     }, []);
 
+    const updateDocuments = async () => {
+        const updatedDocuments = await getDocumentos();
+        setDocumentos(updatedDocuments.data);
+    };
+
     const handleToggleOnChange = (_, DocumentTypeValue) => {
         if (DocumentTypeValue !== null)
             setSelectedDocumentType(DocumentTypeValue);
@@ -98,21 +121,28 @@ export const DocumentsTable = () => {
         const documento = documentos.filter(
             (documento) => documento.id === id
         )[0];
-        console.log(documento);
         return documento;
     };
 
+    const theme = createTheme(ptBR);
+
     return (
         <div className={styles['table-container']}>
-            <DataGrid
-                columns={getColumns(getDocumento)}
-                rows={getRows(documentos, selectedDocumentType)}
-                checkboxSelection
-                localeText={translation}
-            />
+            <ThemeProvider theme={theme}>
+                <DataGrid
+                    columns={getColumns(getDocumento)}
+                    rows={getRows(documentos, selectedDocumentType)}
+                    checkboxSelection
+                    components={{
+                        NoRowsOverlay: CustomLoadingOverlay
+                    }}
+                    theme={theme}
+                />
+            </ThemeProvider>
             <OptionsMenu
                 selectedDocumentType={selectedDocumentType}
                 handleToggleOnChange={handleToggleOnChange}
+                updateDocuments={updateDocuments}
             />
         </div>
     );

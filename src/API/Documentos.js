@@ -1,10 +1,12 @@
 import axios from 'axios'
 import { formatDocumentResponse } from './FormatText' 
 
+const api_url = 'https://a6e9-187-32-90-1.ngrok.io';
+
 export const getDocumentos = async () => {
     const response =  await axios({
         method: 'get',
-        url: 'https://9dcc-187-32-90-1.ngrok.io/financeiro',
+        url: `${api_url}/financeiro`,
         responseType: 'json'
     });
 
@@ -12,14 +14,12 @@ export const getDocumentos = async () => {
 }
 
 export const postDocumento = async (documento) => {
-    console.log(documento);
-
     const valorSeparado = documento.valor.replace('.', '').split(",");
     const valor = parseInt(valorSeparado[0]) + parseInt(valorSeparado[1]) * 0.01;
 
     await axios({
         method: 'post',
-        url: 'https://9dcc-187-32-90-1.ngrok.io/cadastrar/documento',
+        url: `${api_url}/cadastrar/documento`,
         data: {
             parceiroID: documento.parceiro.parceiroId,
             valor: valor,

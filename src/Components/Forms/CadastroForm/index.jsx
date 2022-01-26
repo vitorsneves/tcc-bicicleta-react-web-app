@@ -94,7 +94,7 @@ const renderPessoaFisicaSection = (register, errors) => {
             <TextField
                 label="Nome"
                 className={'nome' + ' ' + formStyles['spawning-input']}
-                inputProps={{ minLength: 3, maxLength: 50 }}
+                inputProps={{ minLength: 3, maxLength: 40 }}
                 {...register('nome')}
                 {...textFieldProps}
             />
@@ -126,6 +126,7 @@ const renderPessoaJuridicaSection = (register, errors) => {
                 className={'cnpj' + ' ' + formStyles['spawning-input']}
                 error={errors.cnpj}
                 helperText={errors.cnpj ? errors.cnpj.message : ''}
+                inputProps={{ maxLength: 18 }}
                 {...register('cnpj', {
                     pattern: {
                         value: /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/,
@@ -138,14 +139,14 @@ const renderPessoaJuridicaSection = (register, errors) => {
             <TextField
                 label="Nome Fantasia"
                 className={'nome-fantasia' + ' ' + formStyles['spawning-input']}
-                inputProps={{ minLength: 3, maxLength: 50 }}
+                inputProps={{ minLength: 3, maxLength: 40 }}
                 {...register('nomeFantasia')}
                 {...textFieldProps}
             />
             <TextField
                 label="Razão social"
                 className={'razao-social' + ' ' + formStyles['spawning-input']}
-                inputProps={{ minLength: 3, maxLength: 50 }}
+                inputProps={{ minLength: 3, maxLength: 40 }}
                 {...register('razaoSocial')}
                 {...textFieldProps}
             />
@@ -219,7 +220,7 @@ const renderAdressSection = (register, errors) => {
                     className="cep"
                     error={errors.cep}
                     helperText={errors.cep ? errors.cep.message : ''}
-                    inputProps={{ maxLength: 10 }}
+                    inputProps={{ maxLength: 9 }}
                     {...register('cep', {
                         pattern: {
                             value: /^\d{5}-\d{3}$/,
@@ -232,7 +233,7 @@ const renderAdressSection = (register, errors) => {
                     label="Logradouro"
                     className="logradouro"
                     {...register('logradouro')}
-                    inputProps={{ minLength: 5, maxLength: 50 }}
+                    inputProps={{ minLength: 5, maxLength: 40 }}
                     {...textFieldProps}
                 />
                 <TextField
@@ -246,7 +247,7 @@ const renderAdressSection = (register, errors) => {
                     label="Complemento"
                     className="complemento"
                     {...register('complemento')}
-                    inputProps={{ maxLength: 50 }}
+                    inputProps={{ maxLength: 40 }}
                     {...textFieldProps}
                 />
                 <TextField
@@ -291,12 +292,14 @@ const renderContactSection = (register, errors) => {
                     label="email"
                     className="email"
                     type="email"
+                    inputProps={{ maxLength: 40 }}
                     {...register('email')}
                     {...textFieldProps}
                 />
                 <TextField
                     label="Telefone Celular"
                     className="telefone"
+                    inputProps={{ maxLength: 15 }}
                     error={errors.telefoneCelular}
                     helperText={
                         errors.telefoneCelular
@@ -314,6 +317,7 @@ const renderContactSection = (register, errors) => {
                 <TextField
                     label="Telefone"
                     className="telefone"
+                    inputProps={{ maxLength: 14 }}
                     error={errors.telefoneFixo}
                     helperText={
                         errors.telefoneFixo ? errors.telefoneFixo.message : ''
@@ -363,7 +367,7 @@ const registerRightField = (person, register, unregister, resetField) => {
 
 //-------------------------------------//
 
-export const CadastroForm = ({ className, buttonText }) => {
+export const CadastroForm = ({ className, buttonText, addPersonToState }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     // The person type can be física or jurídica.
@@ -397,9 +401,10 @@ export const CadastroForm = ({ className, buttonText }) => {
 
     // Called when the user submits the form.
     // Use this to send info to API.
-    const onSubmit = (data) => {
-        PostParceiro({ ...data, tipo: personType });
+    const onSubmit = async (data) => {
         setIsOpen(false);
+        await PostParceiro({ ...data, tipo: personType });
+        addPersonToState();
     };
 
     return (

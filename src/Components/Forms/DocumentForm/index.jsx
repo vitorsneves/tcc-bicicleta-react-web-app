@@ -19,6 +19,7 @@ const renderDocumentInfoSection = (register, errors) => {
                 required
                 label="Valor do documento"
                 className={documentFormStyles.valor}
+                inputProps={{ maxLength: 8 }}
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">R$</InputAdornment>
@@ -28,8 +29,8 @@ const renderDocumentInfoSection = (register, errors) => {
                 helperText={errors.valor ? errors.valor.message : ''}
                 {...register('valor', {
                     pattern: {
-                        value: /^\d{1,3}(?:\.\d{3})*,\d{2}$/,
-                        message: 'exemplo: 10.123,20'
+                        value: /^\d+,\d{2}$/,
+                        message: 'exemplo: 10123,20'
                     }
                 })}
             />
@@ -39,6 +40,7 @@ const renderDocumentInfoSection = (register, errors) => {
                 label="Observação"
                 className="observacao"
                 className={documentFormStyles.observacao}
+                inputProps={{ minLength: 3, maxLength: 100 }}
                 {...register('observacao')}
                 multiline
                 rows={3}
@@ -49,7 +51,7 @@ const renderDocumentInfoSection = (register, errors) => {
 
 //------------------------------------//
 
-export const DocumentForm = ({ className, buttonText }) => {
+export const DocumentForm = ({ className, buttonText, updateDocuments }) => {
     const [isOpen, setIsOpen] = useState(false);
     const {
         control,
@@ -66,9 +68,10 @@ export const DocumentForm = ({ className, buttonText }) => {
         reset({});
     };
 
-    const onSubmit = (data) => {
-        postDocumento(data);
+    const onSubmit = async (data) => {
         setIsOpen(false);
+        await postDocumento(data);
+        updateDocuments();
     };
 
     return (

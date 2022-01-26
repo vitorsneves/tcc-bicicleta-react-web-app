@@ -68,6 +68,8 @@
 
 .keyValueContainer {
     padding: 12px 36px;
+    width: 270px;
+    overflow: hidden;
 }
 
 @media (max-width: 640px) {
