@@ -19,4 +19,4 @@ de imprimir um documento.
   Para executar é necessário ter o node.js e o npm instalado em sua máquina. Após,
 basta executar os comandos "npm install" para baixar as dependências do projeto
 e "npm start" para iniciar.
-  O projeto está hospedado no site https://cranky-montalcini-32d2bf.netlify.app/
+  O projeto está hospedado no site https://musing-bardeen-2ba151.netlify.app/
